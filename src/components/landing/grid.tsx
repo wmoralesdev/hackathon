@@ -38,7 +38,8 @@ export function GridSection({ dict }: { dict: Dictionary }) {
     <section id="grid" className="container mx-auto px-4 py-12 relative">
       <Shard id="shard-1" className="top-0 right-10" />
       
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 auto-rows-[minmax(180px,auto)]">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 auto-rows-[minmax(180px,auto)]">
         
         {/* When */}
         <Card 
@@ -178,6 +179,7 @@ export function GridSection({ dict }: { dict: Dictionary }) {
           </div>
         </Card>
 
+        </div>
       </div>
     </section>
   )

@@ -32,6 +32,12 @@ const Modal = React.forwardRef<HTMLDialogElement, ModalProps>(
       }
     }
 
+    const handleBackdropKeyDown = (e: React.KeyboardEvent<HTMLDialogElement>) => {
+      if (e.key === 'Escape') {
+        onClose()
+      }
+    }
+
     return (
       <dialog
         ref={ref}
@@ -40,23 +46,25 @@ const Modal = React.forwardRef<HTMLDialogElement, ModalProps>(
           className
         )}
         onClick={handleBackdropClick}
+        onKeyDown={handleBackdropKeyDown}
         onClose={onClose}
         {...props}
       >
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+        <div className="fixed inset-0 z-50 flex items-stretch p-4 sm:p-6">
           <div 
-            className="w-full max-w-lg overflow-hidden rounded-xl border border-white/10 bg-card p-6 shadow-2xl"
+            className="w-full max-w-lg overflow-hidden rounded-xl border border-white/10 bg-card p-6 shadow-2xl flex flex-col"
             onClick={(e) => e.stopPropagation()}
+            onKeyDown={(e) => e.stopPropagation()}
           >
             {(title || description) && (
-              <div className="mb-4">
+              <div className="mb-4 shrink-0">
                 {title && <h2 className="text-xl font-bold text-foreground">{title}</h2>}
                 {description && <p className="mt-1 text-sm text-foreground/60">{description}</p>}
               </div>
             )}
-            <div className="text-foreground">{children}</div>
+            <div className="text-foreground flex-1 flex flex-col">{children}</div>
             
-            <div className="mt-6 flex justify-end gap-2">
+            <div className="mt-6 flex justify-end gap-2 shrink-0">
               <Button variant="ghost" onClick={onClose}>
                 Close
               </Button>

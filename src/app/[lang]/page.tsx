@@ -5,9 +5,7 @@ import { GridSection } from "@/components/landing/grid"
 import { Warmups } from "@/components/landing/warmups"
 import { Agenda } from "@/components/landing/agenda"
 import { Criteria } from "@/components/landing/criteria"
-import { Prep } from "@/components/landing/prep"
-import { Mentors } from "@/components/landing/mentors"
-import { Prizes } from "@/components/landing/prizes"
+import { PreflightGrid } from "@/components/landing/preflight-grid"
 import { SponsorshipCTA } from "@/components/landing/sponsorship-cta"
 import { Sponsors } from "@/components/landing/sponsors"
 import { Considerations } from "@/components/landing/considerations"
@@ -32,9 +30,7 @@ export default async function Page({
         <Warmups dict={dict} />
         <Agenda dict={dict} />
         <Criteria dict={dict} />
-        <Prep dict={dict} />
-        <Mentors dict={dict} />
-        <Prizes dict={dict} />
+        <PreflightGrid dict={dict} />
         <SponsorshipCTA dict={dict} />
         <Sponsors dict={dict} />
         <Considerations dict={dict} />

@@ -67,18 +67,19 @@ export function Criteria({ dict }: { dict: Dictionary }) {
       {/* Background Decor */}
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-[radial-gradient(circle_at_center,rgba(245,78,0,0.05)_0%,transparent_60%)] -z-10" />
 
-      <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter mb-4">
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-white/50">Evaluation</span>{" "}
-          <span className="text-accent">Matrix</span>
-        </h2>
-        <p className="text-foreground/60 font-mono text-sm max-w-2xl mx-auto">
-          &gt; ANALYZING PROJECT PARAMETERS...<br/>
-          &gt; OPTIMIZE FOR MAXIMUM SCORE
-        </p>
-      </div>
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter mb-4">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-white/50">Evaluation</span>{" "}
+            <span className="text-accent">Matrix</span>
+          </h2>
+          <p className="text-foreground/60 font-mono text-sm max-w-2xl mx-auto">
+            &gt; ANALYZING PROJECT PARAMETERS...<br/>
+            &gt; OPTIMIZE FOR MAXIMUM SCORE
+          </p>
+        </div>
 
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-3 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
         {stats.map((stat, i) => {
           const isCalibrated = actions.includes(`criteria_${stat.key}`)
           
@@ -158,6 +159,7 @@ export function Criteria({ dict }: { dict: Dictionary }) {
             </Card>
           )
         })}
+        </div>
       </div>
     </section>
   )

@@ -5,6 +5,13 @@ import { Card } from "@/ui/card"
 import { useXp } from "@/components/xp/xp-provider"
 import { useXpFloater } from "@/components/xp/xp-floater"
 
+const sponsorUrls: Record<string, string> = {
+  cursor: "https://cursor.com",
+  vudy: "https://vudy.me",
+  ai_collective: "https://aicollective.com",
+  startupgrind: "https://www.startupgrind.com",
+}
+
 export function Sponsors({ dict }: { dict: Dictionary }) {
   const { completeAction } = useXp()
   const { spawnFloater } = useXpFloater()
@@ -16,9 +23,18 @@ export function Sponsors({ dict }: { dict: Dictionary }) {
     }
   }
 
+  const handleSponsorClick = (name: string, e: React.MouseEvent) => {
+    handleInspect(name, e)
+    const url = sponsorUrls[name]
+    if (url) {
+      window.open(url, "_blank", "noopener,noreferrer")
+    }
+  }
+
   return (
     <section id="sponsors" className="container mx-auto px-4 py-12">
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         
         {/* Host */}
         <div>
@@ -26,15 +42,11 @@ export function Sponsors({ dict }: { dict: Dictionary }) {
           <Card 
             level={2} 
             interactive 
-            onClick={(e) => handleInspect("cursor", e)}
-            className="flex h-32 items-center justify-center p-8 bg-card-01/50"
+            onClick={(e) => handleSponsorClick("cursor", e)}
+            className="flex h-32 items-center justify-center p-8 bg-card-01/50 cursor-pointer"
           >
-            <div className="flex items-center gap-2 text-3xl font-bold tracking-tight">
-              <div className="size-8 bg-foreground text-background flex items-center justify-center rounded-sm">
-                <svg viewBox="0 0 24 24" fill="currentColor" className="size-5"><path d="M21.79 13.91 12 22 2.21 13.91 12 6.09l9.79 7.82ZM12 0 2.21 7.82 12 15.64l9.79-7.82L12 0Z" /></svg>
-              </div>
-              CURSOR
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/sponsors/cursor.webp" alt="Cursor" className="max-h-20 max-w-full object-contain" />
           </Card>
         </div>
 
@@ -45,41 +57,68 @@ export function Sponsors({ dict }: { dict: Dictionary }) {
             <Card 
               level={1} 
               interactive
-              onClick={(e) => handleInspect("vudy", e)}
-              className="flex h-32 items-center justify-center p-4 bg-card-01/50 hover:bg-card-02 transition-colors"
+              onClick={(e) => handleSponsorClick("vudy", e)}
+              className="flex h-32 items-center justify-center p-4 bg-card-01/50 hover:bg-card-02 transition-colors cursor-pointer"
             >
-              <span className="font-bold text-xl">Vudy</span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/sponsors/vudy.webp" alt="Vudy" className="max-h-20 max-w-full object-contain" />
             </Card>
             <Card 
               level={1} 
               interactive
-              onClick={(e) => handleInspect("ai_collective", e)}
-              className="flex h-32 items-center justify-center p-4 bg-card-01/50 hover:bg-card-02 transition-colors"
+              onClick={(e) => handleSponsorClick("ai_collective", e)}
+              className="flex h-32 items-center justify-center p-4 bg-card-01/50 hover:bg-card-02 transition-colors cursor-pointer"
             >
-              <div className="text-center">
-                <div className="text-2xl font-bold">The AI</div>
-                <div className="text-xs uppercase tracking-widest">Collective</div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/sponsors/aicollective.webp" alt="The AI Collective" className="max-h-20 max-w-full object-contain" />
+            </Card>
+            <Card 
+              level={1} 
+              interactive
+              onClick={(e) => handleSponsorClick("startupgrind", e)}
+              className="flex h-32 items-center justify-center p-4 bg-card-01/50 hover:bg-card-02 transition-colors cursor-pointer"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/sponsors/startupgrind.webp" alt="StartupGrind" className="max-h-20 max-w-full object-contain" />
+            </Card>
+            <a
+              href="mailto:hello@wmorales.dev?subject=Cursor%20Hackathon%20San%20Salvador%20-%20Sponsorship"
+              onClick={(e) => {
+                handleInspect("you", e)
+              }}
+              className="relative flex flex-col h-32 items-center justify-center p-4 rounded-lg border-2 border-dashed border-accent/30 bg-accent/5 hover:bg-accent/10 hover:border-accent/50 cursor-pointer transition-all group overflow-hidden"
+            >
+              {/* Corner accents */}
+              <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-accent/50" />
+              <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-accent/50" />
+              <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-accent/50" />
+              <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-accent/50" />
+              
+              <div className="flex items-center gap-2 mb-2">
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  width="20" 
+                  height="20" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                  className="text-accent group-hover:scale-110 transition-transform"
+                  aria-hidden="true"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 8v8" />
+                  <path d="M8 12h8" />
+                </svg>
               </div>
-            </Card>
-            <Card 
-              level={1} 
-              interactive
-              onClick={(e) => handleInspect("startupgrind", e)}
-              className="flex h-32 items-center justify-center p-4 bg-card-01/50 hover:bg-card-02 transition-colors"
-            >
-              <span className="font-bold text-lg text-red-500">startupgrind</span>
-            </Card>
-             <Card 
-              level={1} 
-              interactive
-              onClick={(e) => handleInspect("you", e)}
-              className="flex h-32 items-center justify-center p-4 bg-card-01/50 border-dashed border-2 border-white/10 hover:border-accent/50 hover:text-accent cursor-pointer transition-colors group"
-             >
-              <span className="font-medium group-hover:scale-110 transition-transform">YOU?</span>
-            </Card>
+              <span className="font-mono text-sm font-bold text-accent uppercase tracking-wider">Your Logo Here</span>
+              <span className="font-mono text-[10px] text-foreground/40 group-hover:text-foreground/60 transition-colors mt-1">Become a sponsor</span>
+            </a>
           </div>
         </div>
-
+        </div>
       </div>
     </section>
   )

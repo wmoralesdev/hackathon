@@ -26,19 +26,20 @@ export function Warmups({ dict }: { dict: Dictionary }) {
       {/* Background accent */}
       <div className="absolute left-0 top-0 w-1/3 h-full border-r border-white/5 bg-gradient-to-r from-accent/5 to-transparent pointer-events-none -z-10 hidden lg:block" />
 
-      <div className="text-center mb-12">
-        <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter mb-2">
-          <span className="text-accent">{dict.warmups.title}</span>
-        </h2>
-        <p className="text-xl text-foreground/60 font-mono">
-          {dict.warmups.subtitle}
-        </p>
-        <p className="text-sm text-foreground/40 font-mono mt-4 max-w-xl mx-auto">
-          &gt; {dict.warmups.intro}
-        </p>
-      </div>
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter mb-2">
+            <span className="text-accent">{dict.warmups.title}</span>
+          </h2>
+          <p className="text-xl text-foreground/60 font-mono">
+            {dict.warmups.subtitle}
+          </p>
+          <p className="text-sm text-foreground/40 font-mono mt-4 max-w-xl mx-auto">
+            &gt; {dict.warmups.intro}
+          </p>
+        </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {dict.warmups.days.map((day, index) => (
           <Card
             key={day}
@@ -62,11 +63,12 @@ export function Warmups({ dict }: { dict: Dictionary }) {
             <p className="text-xs font-mono text-foreground/40">30 min</p>
           </Card>
         ))}
-      </div>
+        </div>
 
-      <p className="text-center text-sm font-mono text-foreground/40 mt-8">
-        {dict.warmups.coming_soon}
-      </p>
+        <p className="text-center text-sm font-mono text-foreground/40 mt-8">
+          {dict.warmups.coming_soon}
+        </p>
+      </div>
     </section>
   )
 }

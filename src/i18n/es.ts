@@ -50,6 +50,7 @@ export const es = {
     demos: "Demos y presentaciones de equipos",
     deliberation: "Deliberación del jurado",
     awards: "Premiación y cierre",
+    schedule_note: "Horario sujeto a cambios",
   },
   criteria: {
     title: "Criterios de Evaluación",

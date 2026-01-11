@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Dictionary } from "@/i18n/utils"
+import type { Dictionary } from "@/i18n/utils"
 import { Card } from "@/ui/card"
 import { useXp } from "@/components/xp/xp-provider"
 import { useXpFloater } from "@/components/xp/xp-floater"
@@ -48,9 +48,10 @@ export function Agenda({ dict }: { dict: Dictionary }) {
   return (
     <section id="agenda" className="container mx-auto px-4 py-24 relative">
        {/* Background Grid Accent */}
-       <div className="absolute right-0 top-0 w-1/3 h-full border-l border-white/5 bg-gradient-to-l from-white/5 to-transparent pointer-events-none -z-10 hidden lg:block" />
+       <div className="absolute right-0 top-0 w-1/3 h-full border-l border-white/5 bg-linear-to-l from-white/5 to-transparent pointer-events-none -z-10 hidden lg:block" />
 
-      <div className="flex flex-col md:flex-row gap-12">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row gap-12">
         <div className="md:w-1/3">
           <div className="sticky top-24">
             <h2 className="text-5xl font-black uppercase tracking-tighter mb-4">
@@ -62,15 +63,18 @@ export function Agenda({ dict }: { dict: Dictionary }) {
               &gt; EXECUTE
             </p>
             <div className="h-1 w-20 bg-accent mb-8" />
-            <div className="text-xs font-mono text-foreground/40">
+            <div className="text-xs font-mono text-foreground/40 mb-4">
               {committedCount} / {items.length} COMMITS SYNCED
+            </div>
+            <div className="text-[10px] font-mono text-foreground/30 border-l-2 border-orange-500/30 pl-2">
+              &gt; {dict.agenda.schedule_note}
             </div>
           </div>
         </div>
 
         <div className="md:w-2/3 relative">
           {/* Vertical Line */}
-          <div className="absolute left-2.5 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-accent/50 to-transparent" />
+          <div className="absolute left-2.5 top-0 bottom-0 w-px bg-linear-to-b from-transparent via-accent/50 to-transparent" />
           
           <div className="space-y-8">
             {items.map((item) => {
@@ -131,6 +135,7 @@ export function Agenda({ dict }: { dict: Dictionary }) {
             })}
           </div>
         </div>
+      </div>
       </div>
     </section>
   )

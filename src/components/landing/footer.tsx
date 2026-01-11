@@ -82,12 +82,28 @@ export function Footer({ dict }: { dict: Dictionary }) {
         </div>
 
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-foreground/40 font-mono">
-          <p>{dict.footer.hosted_by}</p>
-          <div className="flex gap-6">
-            <a href="#" className="hover:text-foreground">Code of Conduct</a>
-            <a href="#" className="hover:text-foreground">Privacy Policy</a>
-            <a href="mailto:walter@cursor.sh" className="hover:text-foreground">{dict.footer.contact}</a>
-          </div>
+          <p>
+            {dict.footer.hosted_by.includes('Walter Morales') ? (
+              <>
+                {dict.footer.hosted_by.split('Walter Morales')[0]}
+                <a 
+                  href="https://wmorales.dev" 
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="text-accent hover:text-accent/80 font-semibold underline underline-offset-2 transition-colors inline-flex items-center gap-1 ml-1"
+                >
+                  Walter Morales
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" x2="21" y1="14" y2="3" />
+                  </svg>
+                </a>
+              </>
+            ) : (
+              dict.footer.hosted_by
+            )}
+          </p>
         </div>
       </div>
     </footer>

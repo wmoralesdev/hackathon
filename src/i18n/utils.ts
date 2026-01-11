@@ -11,5 +11,5 @@ export type Locale = keyof typeof dictionaries
 export type Dictionary = typeof en
 
 export const getDictionary = async (locale: Locale): Promise<Dictionary> => {
-  return dictionaries[locale] ?? dictionaries.en
+  return dictionaries[locale] ?? dictionaries.es
 }
