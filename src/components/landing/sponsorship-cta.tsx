@@ -85,14 +85,14 @@ export function SponsorshipCTA({ dict }: { dict: Dictionary }) {
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-accent/30 bg-accent/5 mb-4">
             <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="text-xs font-mono text-accent uppercase tracking-wider">Open for Partners</span>
+            <span className="text-xs font-mono text-accent uppercase tracking-wider">{dict.sponsorship_cta.badge}</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tighter mb-3">
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-white to-white/50">Support the</span>{" "}
-            <span className="text-accent">Movement</span>
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-white to-white/50">{dict.sponsorship_cta.title_part1}</span>{" "}
+            <span className="text-accent">{dict.sponsorship_cta.title_part2}</span>
           </h2>
           <p className="text-foreground/60 font-mono text-sm max-w-lg mx-auto">
-            &gt; Help us build Central America&apos;s first Cursor hackathon. Multiple ways to get involved.
+            &gt; {dict.sponsorship_cta.description}
           </p>
         </div>
 

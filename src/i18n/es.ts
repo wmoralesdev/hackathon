@@ -51,6 +51,12 @@ export const es = {
     deliberation: "Deliberación del jurado",
     awards: "Premiación y cierre",
     schedule_note: "Horario sujeto a cambios",
+    timeline_title_part1: "Cronograma de la",
+    timeline_title_part2: "Misión",
+    sync_watches: "SINCRONIZAR RELOJES",
+    follow_protocols: "SEGUIR PROTOCOLOS",
+    execute: "EJECUTAR",
+    commits_synced: "COMMITS SINCRONIZADOS",
   },
   criteria: {
     title: "Criterios de Evaluación",
@@ -66,6 +72,10 @@ export const es = {
       title: "Uso de Cursor",
       desc: "¿Qué tan efectivamente se aprovecharon las funciones de Cursor?",
     },
+    matrix_title_part1: "Matriz de",
+    matrix_title_part2: "Evaluación",
+    analyzing: "ANALIZANDO PARÁMETROS DEL PROYECTO...",
+    optimize: "OPTIMIZAR PARA PUNTUACIÓN MÁXIMA",
   },
   prep: {
     title: "Prepárate antes del evento",
@@ -122,5 +132,23 @@ export const es = {
     builders_limit: "¡Cupo limitado a 100 builders!",
     hashtag: "#cursorsv",
     winners_site: "Proyectos ganadores",
+  },
+  register: {
+    description: "Asegura tu lugar en la primera Hackatón Cursor en Centroamérica.",
+    team_cta: "¿Necesitas equipo?",
+    team_link: "Únete a nuestro WhatsApp",
+    team_suffix: "para encontrar compañeros!",
+    button: "Registrarse para el evento",
+  },
+  organizers: {
+    title_part1: "Arquitectos del",
+    title_part2: "Sistema",
+    subtitle: "CONOCE AL EQUIPO DETRÁS DEL EVENTO",
+  },
+  sponsorship_cta: {
+    badge: "Abierto para Partners",
+    title_part1: "Apoya el",
+    title_part2: "Movimiento",
+    description: "Ayúdanos a construir la primera hackatón Cursor en Centroamérica. Múltiples formas de participar.",
   },
 };

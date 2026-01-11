@@ -55,16 +55,16 @@ export function Agenda({ dict }: { dict: Dictionary }) {
         <div className="md:w-1/3">
           <div className="sticky top-24">
             <h2 className="text-5xl font-black uppercase tracking-tighter mb-4">
-              <span className="text-accent">Mission</span><br/>Timeline
+              <span className="text-accent">{dict.agenda.timeline_title_part1}</span><br/>{dict.agenda.timeline_title_part2}
             </h2>
             <p className="text-foreground/60 font-mono text-sm leading-relaxed mb-8">
-              &gt; SYNCHRONIZE WATCHES<br/>
-              &gt; FOLLOW PROTOCOLS<br/>
-              &gt; EXECUTE
+              &gt; {dict.agenda.sync_watches}<br/>
+              &gt; {dict.agenda.follow_protocols}<br/>
+              &gt; {dict.agenda.execute}
             </p>
             <div className="h-1 w-20 bg-accent mb-8" />
             <div className="text-xs font-mono text-foreground/40 mb-4">
-              {committedCount} / {items.length} COMMITS SYNCED
+              {committedCount} / {items.length} {dict.agenda.commits_synced}
             </div>
             <div className="text-[10px] font-mono text-foreground/30 border-l-2 border-orange-500/30 pl-2">
               &gt; {dict.agenda.schedule_note}

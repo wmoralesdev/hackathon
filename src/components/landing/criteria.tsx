@@ -70,12 +70,12 @@ export function Criteria({ dict }: { dict: Dictionary }) {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter mb-4">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-white/50">Evaluation</span>{" "}
-            <span className="text-accent">Matrix</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-white/50">{dict.criteria.matrix_title_part1}</span>{" "}
+            <span className="text-accent">{dict.criteria.matrix_title_part2}</span>
           </h2>
           <p className="text-foreground/60 font-mono text-sm max-w-2xl mx-auto">
-            &gt; ANALYZING PROJECT PARAMETERS...<br/>
-            &gt; OPTIMIZE FOR MAXIMUM SCORE
+            &gt; {dict.criteria.analyzing}<br/>
+            &gt; {dict.criteria.optimize}
           </p>
         </div>
 

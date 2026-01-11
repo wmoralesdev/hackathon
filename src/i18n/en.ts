@@ -51,6 +51,12 @@ export const en = {
     deliberation: "Jury Deliberation",
     awards: "Awards & Closing",
     schedule_note: "Schedule subject to change",
+    timeline_title_part1: "Mission",
+    timeline_title_part2: "Timeline",
+    sync_watches: "SYNCHRONIZE WATCHES",
+    follow_protocols: "FOLLOW PROTOCOLS",
+    execute: "EXECUTE",
+    commits_synced: "COMMITS SYNCED",
   },
   criteria: {
     title: "Evaluation Criteria",
@@ -66,6 +72,10 @@ export const en = {
       title: "Use of Cursor",
       desc: "How effectively were Cursor features leveraged?",
     },
+    matrix_title_part1: "Evaluation",
+    matrix_title_part2: "Matrix",
+    analyzing: "ANALYZING PROJECT PARAMETERS...",
+    optimize: "OPTIMIZE FOR MAXIMUM SCORE",
   },
   prep: {
     title: "Prepare Before the Event",
@@ -122,5 +132,23 @@ export const en = {
     builders_limit: "Limited to 100 builders!",
     hashtag: "#cursorsv",
     winners_site: "Winning projects",
+  },
+  register: {
+    description: "Secure your spot at the first Cursor Hackathon in Central America.",
+    team_cta: "Need a team?",
+    team_link: "Join our WhatsApp",
+    team_suffix: "to find teammates!",
+    button: "Register for Event",
+  },
+  organizers: {
+    title_part1: "System",
+    title_part2: "Architects",
+    subtitle: "MEET THE TEAM BEHIND THE EVENT",
+  },
+  sponsorship_cta: {
+    badge: "Open for Partners",
+    title_part1: "Support the",
+    title_part2: "Movement",
+    description: "Help us build Central America's first Cursor hackathon. Multiple ways to get involved.",
   },
 };

@@ -54,10 +54,10 @@ export function Organizers({ dict }: { dict: Dictionary }) {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold tracking-tight uppercase mb-4">
-            <span className="text-accent">System</span> Architects
+            <span className="text-accent">{dict.organizers.title_part1}</span> {dict.organizers.title_part2}
           </h2>
           <p className="text-foreground/60 font-mono">
-            &gt; MEET THE TEAM BEHIND THE EVENT
+            &gt; {dict.organizers.subtitle}
           </p>
         </div>
 

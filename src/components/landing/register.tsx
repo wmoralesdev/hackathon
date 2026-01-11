@@ -17,19 +17,19 @@ export function Register({ dict }: { dict: Dictionary }) {
               <span className="text-transparent bg-clip-text bg-linear-to-r from-white to-white/50">{dict.nav.register}</span>
             </h2>
             <p className="text-foreground/60 max-w-xl mx-auto mb-3 font-mono text-sm">
-              Secure your spot at the first Cursor Hackathon in Central America.
+              {dict.register.description}
             </p>
             <p className="text-xs text-foreground/40 font-mono mb-6">
-              &gt; Need a team?{" "}
+              &gt; {dict.register.team_cta}{" "}
               <a 
                 href="https://chat.whatsapp.com/Ga8mG1fqDM9C0ryxAw1eIj" 
                 target="_blank" 
                 rel="noreferrer"
                 className="text-accent hover:underline"
               >
-                Join our WhatsApp
+                {dict.register.team_link}
               </a>{" "}
-              to find teammates!
+              {dict.register.team_suffix}
             </p>
             
             <div className="flex justify-center">
@@ -51,7 +51,7 @@ export function Register({ dict }: { dict: Dictionary }) {
                   <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
                   <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                 </svg>
-                <span>Register for Event</span>
+                <span>{dict.register.button}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform" aria-hidden="true">
                   <path d="M5 12h14" />
                   <path d="m12 5 7 7-7 7" />
