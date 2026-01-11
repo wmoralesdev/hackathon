@@ -5,6 +5,7 @@ import { Card } from "@/ui/card"
 import { Badge } from "@/ui/badge"
 import { useXp } from "@/components/xp/xp-provider"
 import { useXpFloater } from "@/components/xp/xp-floater"
+import { cn } from "@/lib/utils"
 
 export function Organizers({ dict }: { dict: Dictionary }) {
   // dict will be used when organizers data is added to i18n dictionary
@@ -73,7 +74,14 @@ export function Organizers({ dict }: { dict: Dictionary }) {
             <div className="relative mb-8 w-full flex justify-center">
               <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-white/10 group-hover:border-accent transition-colors relative z-10">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={org.image} alt={org.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" />
+                <img 
+                  src={org.image} 
+                  alt={org.name} 
+                  className={cn(
+                    "w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all",
+                    org.name === "Francis Sanchinelli" && "object-[center_25%]"
+                  )} 
+                />
               </div>
               <div className="absolute bottom-0 left-1/2 -translate-x-1/2 bg-black/80 px-3 py-0.5 rounded-full border border-accent/30 text-[10px] font-mono text-accent z-20">
                 LVL.{org.level}
