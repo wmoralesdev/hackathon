@@ -25,7 +25,7 @@ export function Organizers({ dict }: { dict: Dictionary }) {
     {
       name: "Francis Sanchinelli",
       role: "Organizer",
-      tags: ["TBD"],
+      tags: ["Founder of U3Tech", "President of ABGT"],
       level: 99,
       image: "/org/francis.webp",
       x: "https://x.com/fsanchinelli"
@@ -35,7 +35,7 @@ export function Organizers({ dict }: { dict: Dictionary }) {
       role: "Organizer",
       tags: ["Creative Builder", "Supabase AI Builder Supporter"],
       level: 99,
-      image: "https://github.com/CarolMonroe.png",
+      image: "/org/carol.webp",
       x: "https://x.com/CarolMonroe"
     },
   ]
