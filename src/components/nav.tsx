@@ -10,12 +10,9 @@ export function Nav({ dict }: { dict: Dictionary }) {
       <div className="container mx-auto flex h-14 items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-2 font-bold text-xl tracking-tight">
           <div className="flex items-center gap-2">
-            <div className="size-6 bg-foreground text-background flex items-center justify-center rounded-sm">
-              <svg viewBox="0 0 24 24" fill="currentColor" className="size-4">
-                <path d="M21.79 13.91 12 22 2.21 13.91 12 6.09l9.79 7.82ZM12 0 2.21 7.82 12 15.64l9.79-7.82L12 0Z" />
-              </svg>
-            </div>
-            <span>Cursor Hackathon</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/sponsors/cursor.webp" alt="Cursor" className="h-7 w-auto object-contain" />
+            <span>Hackathon</span>
           </div>
         </Link>
         <div className="flex items-center gap-4">
