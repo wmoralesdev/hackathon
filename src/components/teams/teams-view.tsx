@@ -65,7 +65,7 @@ export function TeamsView({ teams, loading, error, dict }: TeamsViewProps) {
   const handleLeaderClick = (leaderName: string, teamDisplayName: string, teamSize: number) => {
     // Extract team number from displayName (e.g., "Team 1" -> "1")
     const teamNumber = teamDisplayName.replace(/[^0-9]/g, "") || teamDisplayName
-    const message = `Hola Walter, soy ${leaderName} del equipo ${teamNumber}. Te confirmo la inscripción y participación de los ${teamSize} de mi equipo.`
+    const message = `Hola Walter, soy ${leaderName} del equipo ${teamNumber}. Te confirmo la inscripción y participación de los ${teamSize} miembro${teamSize > 1 ? "s" : ""} de mi equipo.`
     const encodedMessage = encodeURIComponent(message)
     const whatsappUrl = `https://wa.me/71320261?text=${encodedMessage}`
     window.open(whatsappUrl, "_blank", "noopener,noreferrer")
