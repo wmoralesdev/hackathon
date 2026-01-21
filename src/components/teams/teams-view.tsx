@@ -78,21 +78,18 @@ export function TeamsView({ teams, loading, error, dict }: TeamsViewProps) {
     }))
   }
 
-  // Filter teams based on search
+  // Filter teams based on search - show entire teams if any member matches
   const filteredTeams = React.useMemo(() => {
     if (!search.trim()) return teams
 
     const searchLower = search.toLowerCase()
-    return teams
-      .map((team) => ({
-        ...team,
-        members: team.members.filter(
-          (member) =>
-            member.name.toLowerCase().includes(searchLower) ||
-            member.whatsapp.toLowerCase().includes(searchLower)
-        ),
-      }))
-      .filter((team) => team.members.length > 0)
+    return teams.filter((team) =>
+      team.members.some(
+        (member) =>
+          member.name.toLowerCase().includes(searchLower) ||
+          member.whatsapp.toLowerCase().includes(searchLower)
+      )
+    )
   }, [teams, search])
 
   if (loading) {
