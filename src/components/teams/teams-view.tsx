@@ -10,6 +10,7 @@ interface TeamMember {
   role: string
   name: string
   luma: boolean
+  rsvp: boolean
   whatsapp: string
 }
 
@@ -38,13 +39,14 @@ interface TeamsViewProps {
       loading: string
       error: string
       confirm_instructions: string
+      missing_rsvp: string
+      completed: string
     }
   }
 }
 
 export function TeamsView({ teams, loading, error, dict }: TeamsViewProps) {
   const [search, setSearch] = React.useState("")
-  const [rsvpChecks, setRsvpChecks] = React.useState<Record<string, boolean>>({})
 
   const t = dict.teams ?? {
     title: "Equipos",
@@ -60,6 +62,8 @@ export function TeamsView({ teams, loading, error, dict }: TeamsViewProps) {
     loading: "Cargando equipos...",
     error: "Error al cargar equipos",
     confirm_instructions: "Haz clic en el badge de Líder para confirmar la participación de tu equipo",
+    missing_rsvp: "RSVP pendiente",
+    completed: "Completado",
   }
 
   const handleLeaderClick = (leaderName: string, teamDisplayName: string, teamSize: number) => {
@@ -71,12 +75,12 @@ export function TeamsView({ teams, loading, error, dict }: TeamsViewProps) {
     window.open(whatsappUrl, "_blank", "noopener,noreferrer")
   }
 
-  const toggleRsvp = (memberId: string) => {
-    setRsvpChecks((prev) => ({
-      ...prev,
-      [memberId]: !prev[memberId],
-    }))
-  }
+  // Calculate missing RSVP count
+  const missingRsvpCount = React.useMemo(() => {
+    return teams.reduce((count, team) => {
+      return count + team.members.filter(member => !member.rsvp).length
+    }, 0)
+  }, [teams])
 
   // Filter teams based on search - show entire teams if any member matches
   const filteredTeams = React.useMemo(() => {
@@ -128,9 +132,16 @@ export function TeamsView({ teams, loading, error, dict }: TeamsViewProps) {
           <h1 className="text-4xl md:text-5xl font-bold tracking-tighter uppercase mb-4">
             {t.title}
           </h1>
-          <p className="text-foreground/60 font-mono text-sm mb-6">
-            {teams.length} equipos registrados
-          </p>
+          <div className="flex items-center justify-center gap-4 mb-6 flex-wrap">
+            <p className="text-foreground/60 font-mono text-sm">
+              {teams.length} equipos registrados
+            </p>
+            {missingRsvpCount > 0 && (
+              <Badge variant="destructive" className="text-xs px-2 py-1">
+                {missingRsvpCount} {t.missing_rsvp}{missingRsvpCount > 1 ? "s" : ""}
+              </Badge>
+            )}
+          </div>
           <p className="text-foreground/50 font-mono text-xs max-w-2xl mx-auto mb-4">
             {t.confirm_instructions}
           </p>
@@ -176,23 +187,39 @@ export function TeamsView({ teams, loading, error, dict }: TeamsViewProps) {
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
             {filteredTeams.map((team) => {
               const hasMissingLuma = team.members.some(member => !member.luma)
+              const isCompleted = team.members.every(member => member.luma && member.rsvp)
               
               return (
               <Card 
                 key={team.id} 
                 level={1} 
                 className={cn(
-                  "overflow-hidden",
-                  hasMissingLuma && "border-yellow-500/50 border-2"
+                  "overflow-hidden relative",
+                  hasMissingLuma && "border-yellow-500/50 border-2",
+                  isCompleted && "border-green-500/30"
                 )}
               >
+                {/* Subtle green overlay for completed teams */}
+                {isCompleted && (
+                  <div className="absolute inset-0 bg-gradient-to-br from-green-500/8 via-green-500/4 to-green-500/2 pointer-events-none z-0 rounded-sm" />
+                )}
+                {/* Subtle yellow overlay for teams with missing Luma */}
+                {hasMissingLuma && !isCompleted && (
+                  <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/8 via-yellow-500/4 to-yellow-500/2 pointer-events-none z-0 rounded-sm" />
+                )}
+                <div className="relative z-10">
                 {/* Team Header */}
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
                     <Badge variant="default" className="text-sm">
                       {team.displayName}
                     </Badge>
-                    {hasMissingLuma && (
+                    {isCompleted && (
+                      <Badge variant="default" className="text-[10px] px-2 py-0.5 bg-green-500/20 border-green-500 text-green-500">
+                        ✓ {t.completed}
+                      </Badge>
+                    )}
+                    {hasMissingLuma && !isCompleted && (
                       <Badge variant="destructive" className="text-[10px] px-2 py-0.5 animate-pulse">
                         ⚠ Luma pendiente
                       </Badge>
@@ -268,34 +295,11 @@ export function TeamsView({ teams, loading, error, dict }: TeamsViewProps) {
                             )}
                           </td>
                           <td className="py-2 px-6 text-center">
-                            <label className="inline-flex items-center cursor-pointer">
-                              <input
-                                type="checkbox"
-                                checked={rsvpChecks[member.id] ?? false}
-                                onChange={() => toggleRsvp(member.id)}
-                                className="sr-only peer"
-                              />
-                              <div className="w-4 h-4 border border-white/30 rounded-sm bg-black/40 peer-checked:bg-accent peer-checked:border-accent flex items-center justify-center transition-colors">
-                                {rsvpChecks[member.id] && (
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="12"
-                                    height="12"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="3"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    className="text-white"
-                                    aria-hidden="true"
-                                  >
-                                    <title>Checked</title>
-                                    <polyline points="20 6 9 17 4 12" />
-                                  </svg>
-                                )}
-                              </div>
-                            </label>
+                            {member.rsvp ? (
+                              <span className="text-green-500">✓</span>
+                            ) : (
+                              <span className="text-red-500/60">✗</span>
+                            )}
                           </td>
                           <td className="py-2 px-6 font-mono text-xs text-foreground/60 break-all whitespace-normal" style={{ minWidth: '140px', width: '140px' }}>
                             {member.whatsapp ? (
@@ -315,6 +319,7 @@ export function TeamsView({ teams, loading, error, dict }: TeamsViewProps) {
                       ))}
                     </tbody>
                   </table>
+                </div>
                 </div>
               </Card>
               )

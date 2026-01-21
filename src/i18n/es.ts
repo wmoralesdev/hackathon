@@ -17,6 +17,8 @@ export const es = {
     loading: "Cargando equipos...",
     error: "Error al cargar equipos",
     confirm_instructions: "Haz clic en el badge de Líder para confirmar la participación de tu equipo",
+    missing_rsvp: "RSVP pendiente",
+    completed: "Completado",
   },
   hero: {
     title: "Cursor Hackathon",

@@ -10,6 +10,7 @@ interface TeamMember {
   role: string
   name: string
   luma: boolean
+  rsvp: boolean
   whatsapp: string
 }
 
@@ -58,15 +59,17 @@ function parseTeamsData(content: string): Team[] {
     if (currentTeam) {
       const parts = line.split("\t")
       
-      // Format is always: [Role/Empty] | Name | RSVP | WhatsApp
+      // Format: [Role/Empty] | Name | Luma | RSVP | WhatsApp
       // Column 0: Role (LEAD or empty string)
       // Column 1: Name
-      // Column 2: RSVP (TRUE/FALSE)
-      // Column 3: WhatsApp
+      // Column 2: Luma (TRUE/FALSE)
+      // Column 3: RSVP (TRUE/FALSE)
+      // Column 4: WhatsApp
       const roleCol = parts[0]?.trim() || ""
       const name = parts[1]?.trim() || ""
-      const rsvpValue = parts[2]?.trim() || "FALSE"
-      const whatsapp = parts[3]?.trim() || ""
+      const lumaValue = parts[2]?.trim() || "FALSE"
+      const rsvpValue = parts[3]?.trim() || "FALSE"
+      const whatsapp = parts[4]?.trim() || ""
 
       // Skip rows with no name
       if (!name) continue
@@ -78,7 +81,8 @@ function parseTeamsData(content: string): Team[] {
         id: `${currentTeam.id}-${memberIndex}`,
         role,
         name,
-        luma: rsvpValue.toUpperCase() === "TRUE",
+        luma: lumaValue.toUpperCase() === "TRUE",
+        rsvp: rsvpValue.toUpperCase() === "TRUE",
         whatsapp,
       })
       memberIndex++

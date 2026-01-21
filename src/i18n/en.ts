@@ -17,6 +17,8 @@ export const en = {
     loading: "Loading teams...",
     error: "Error loading teams",
     confirm_instructions: "Click on the Leader badge to confirm your team's participation",
+    missing_rsvp: "RSVP pending",
+    completed: "Completed",
   },
   hero: {
     title: "Cursor Hackathon",
