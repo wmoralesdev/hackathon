@@ -58,10 +58,10 @@ LEAD	Diego Vega	TRUE	FALSE	+503 6306 3691
 	Gerardo Javier Valle Navarro	TRUE	FALSE	+503 7569 9832
 				
 Team 12	Members	Luma	RSVP	WhatsApp
-LEAD	Emerson Minero	TRUE	FALSE	+503 7600 6449
-	Ever Sanchez	TRUE	FALSE	+503 7269 9641
-	Ricardo Castaneda	TRUE	FALSE	+503 7740 7075
-	Caleb Rodriguez	TRUE	FALSE	+503 7600 1850
+LEAD	Emerson Minero	TRUE	TRUE	+503 7600 6449
+	Ever Sanchez	TRUE	TRUE	+503 7269 9641
+	Ricardo Castaneda	TRUE	TRUE	+503 7740 7075
+	Caleb Rodriguez	TRUE	TRUE	+503 7600 1850
 				
 Team 13	Members	Luma	RSVP	WhatsApp
 LEAD	Erick Saravia	TRUE	FALSE	+503 7102 1375
@@ -86,8 +86,8 @@ LEAD	Gino Stefano Miles Martínez	TRUE	TRUE	+503 7408 2180
 	Manuel Alexander Morales Mejía	TRUE	TRUE	+503 7653 2213
 				
 Team 18	Members	Luma	RSVP	WhatsApp
-LEAD	Ingrid López	TRUE	FALSE	+502 4703 5917
-	Rocael López	TRUE	FALSE	+502 4776 5168
+LEAD	Ingrid López	TRUE	TRUE	+502 4703 5917
+	Rocael López	TRUE	TRUE	+502 4776 5168
 				
 Team 19	Members	Luma	RSVP	WhatsApp
 LEAD	Kevin Silva	TRUE	FALSE	+503 7157 3001
@@ -111,10 +111,10 @@ LEAD	Jorge Monge	TRUE	FALSE	+503 7161 6210
 	Rony Bonilla	TRUE	FALSE	+503 7387 2514
 				
 Team 23	Members	Luma	RSVP	WhatsApp
-LEAD	Josue Citalan	TRUE	FALSE	+502 3059 8114
-	Carlos Hernandez	TRUE	FALSE	+502 5316 1679
-	Arun Solis	TRUE	FALSE	+502 4615 5228
-	James Maradiaga	TRUE	FALSE	+502 5568 2638
+LEAD	Josue Citalan	TRUE	TRUE	+502 3059 8114
+	Carlos Hernandez	TRUE	TRUE	+502 5316 1679
+	Arun Solis	TRUE	TRUE	+502 4615 5228
+	James Maradiaga	TRUE	TRUE	+502 5568 2638
 				
 Team 24	Members	Luma	RSVP	WhatsApp
 LEAD	Lisbeth Argueta	TRUE	FALSE	+503 7798 0998
@@ -128,10 +128,10 @@ LEAD	Marcelo Guerra	TRUE	FALSE	+503 7869 6936
 	Kathia Gómez	TRUE	FALSE	
 				
 Team 26	Members	Luma	RSVP	WhatsApp
-LEAD	Marvin Ramos	TRUE	FALSE	+503 7579 0849
-	Gabriel Campos	TRUE	FALSE	+503 7102 3223
-	Angie Espinoza	TRUE	FALSE	+503 6828 4408
-	Fernando Pineda	TRUE	FALSE	+503 7732 3184
+LEAD	Marvin Ramos	TRUE	TRUE	+503 7579 0849
+	Gabriel Campos	TRUE	TRUE	+503 7102 3223
+	Angie Espinoza	TRUE	TRUE	+503 6828 4408
+	Fernando Pineda	TRUE	TRUE	+503 7732 3184
 				
 Team 27	Members	Luma	RSVP	WhatsApp
 LEAD	Monica Diaz	TRUE	FALSE	+503 7400 4702
@@ -163,9 +163,9 @@ LEAD	Rene Garcia	TRUE	FALSE	+503 7729 8463
 	Melissa Pleitez	TRUE	FALSE	
 				
 Team 33	Members	Luma	RSVP	WhatsApp
-LEAD	Roberto Arrieta	TRUE	FALSE	+503 7987 2106
-	Gabriel Campos	TRUE	FALSE	+503 7501 9794
-	Nataly Ponce	TRUE	FALSE	+503 7264 6395
+LEAD	Roberto Arrieta	TRUE	TRUE	+503 7987 2106
+	Gabriel Campos	TRUE	TRUE	+503 7501 9794
+	Nataly Ponce	TRUE	TRUE	+503 7264 6395
 				
 Team 34	Members	Luma	RSVP	WhatsApp
 LEAD	Ronald Ernesto Tejada Rios	TRUE	TRUE	+503 7923 4790
