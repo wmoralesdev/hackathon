@@ -1,6 +1,22 @@
 export const en = {
   nav: {
     register: "Register",
+    teams: "Teams",
+  },
+  teams: {
+    title: "Teams",
+    search_placeholder: "Search by name or WhatsApp...",
+    role: "Role",
+    name: "Name",
+    luma: "Luma",
+    rsvp: "RSVP",
+    whatsapp: "WhatsApp",
+    lead: "Lead",
+    member: "Member",
+    no_results: "No results",
+    loading: "Loading teams...",
+    error: "Error loading teams",
+    confirm_instructions: "Click on the Leader badge to confirm your team's participation",
   },
   hero: {
     title: "Cursor Hackathon",

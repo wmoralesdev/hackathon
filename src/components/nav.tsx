@@ -1,8 +1,7 @@
-import * as React from "react"
 import Link from "next/link"
 import { Button } from "@/ui/button"
 import { LanguageSwitcher } from "@/components/language-switcher"
-import { Dictionary } from "@/i18n/utils"
+import type { Dictionary } from "@/i18n/utils"
 
 export function Nav({ dict }: { dict: Dictionary }) {
   return (
@@ -16,6 +15,12 @@ export function Nav({ dict }: { dict: Dictionary }) {
           </div>
         </Link>
         <div className="flex items-center gap-4">
+          <Link
+            href="/es/equipos"
+            className="text-sm font-mono text-foreground/70 hover:text-accent transition-colors"
+          >
+            {dict.nav.teams}
+          </Link>
           <LanguageSwitcher />
           <Button asChild variant="primary" size="sm">
             <Link href="#register">

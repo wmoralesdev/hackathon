@@ -1,6 +1,22 @@
 export const es = {
   nav: {
     register: "Registrarse",
+    teams: "Equipos",
+  },
+  teams: {
+    title: "Equipos",
+    search_placeholder: "Buscar por nombre o WhatsApp...",
+    role: "Rol",
+    name: "Nombre",
+    luma: "Luma",
+    rsvp: "RSVP",
+    whatsapp: "WhatsApp",
+    lead: "Líder",
+    member: "Miembro",
+    no_results: "Sin resultados",
+    loading: "Cargando equipos...",
+    error: "Error al cargar equipos",
+    confirm_instructions: "Haz clic en el badge de Líder para confirmar la participación de tu equipo",
   },
   hero: {
     title: "Cursor Hackathon",

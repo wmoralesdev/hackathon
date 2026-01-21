@@ -62,7 +62,10 @@ export function OnboardingOverlay() {
 
   return (
     <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/95 backdrop-blur-xl">
-      <Card level={2} className="w-full max-w-md p-8 border-accent/20 shadow-[0_0_50px_rgba(245,78,0,0.2)] animate-in zoom-in-95 duration-300">
+      <Card
+        level={2}
+        className="w-full max-w-xl p-10 border-accent/20 shadow-[0_0_50px_rgba(245,78,0,0.2)] animate-in zoom-in-95 duration-300"
+      >
         <div className="font-mono text-xs text-accent mb-4 border-b border-accent/20 pb-2 flex justify-between">
            <span>BOOT_SEQUENCE_V1.0</span>
            <span>STEP {step + 1}/{steps.length}</span>
@@ -70,7 +73,7 @@ export function OnboardingOverlay() {
 
         <h2 className="text-2xl font-bold mb-4 font-mono">{steps[step].title}</h2>
         
-        <div className="min-h-[120px] mb-8 text-foreground/80 leading-relaxed">
+        <div className="min-h-[160px] mb-8 text-foreground/80 leading-relaxed">
           {steps[step].content}
         </div>
 
