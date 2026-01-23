@@ -240,3 +240,4 @@ LEAD	Karina Alvarez	TRUE	TRUE	+503 7535 0582
 Team 46	Members	Luma	RSVP	WhatsApp
 LEAD	Harold Manzano	TRUE	TRUE	+503 7126 2384
 	Marlon Rivas	TRUE	TRUE	+503 7733 7519
+	Victor Iteriano	TRUE	TRUE	+503 7218 7800
