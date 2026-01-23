@@ -125,7 +125,7 @@ LEAD	Lisbeth Argueta	TRUE	FALSE	+503 7798 0998
 Team 25	Members	Luma	RSVP	WhatsApp
 LEAD	Marcelo Guerra	TRUE	FALSE	+503 7869 6936
 	Cristina Rosa	FALSE	FALSE	
-	Alexis Cabrera	FALSE	FALSE	
+	Alexis Cabrera	TRUE	FALSE	
 	Diego Arévalo	TRUE	FALSE	+503 7620 2883
 	Kathia Gómez	TRUE	FALSE	
 				
@@ -234,4 +234,9 @@ LEAD	Nicole Azucena Barahona Castro	TRUE	TRUE	50379971767
 Team 45	Members	Luma	RSVP	WhatsApp
 LEAD	Karina Alvarez	TRUE	TRUE	+503 7535 0582
 	Shers Portillo	TRUE	TRUE	+503 7977 9895
+	Gabriela Urías	TRUE	TRUE	+503 7911 4313
 	Estefany Quezada	TRUE	TRUE	+503 7208 8850
+				
+Team 46	Members	Luma	RSVP	WhatsApp
+LEAD	Harold Manzano	TRUE	TRUE	+503 7126 2384
+	Marlon Rivas	TRUE	TRUE	+503 7733 7519
