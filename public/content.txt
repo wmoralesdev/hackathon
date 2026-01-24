@@ -36,8 +36,8 @@ LEAD	BRYAN ESCOBAR	TRUE	FALSE	+503 7650 8926
 	Andres Galan	TRUE	FALSE	+503 7228 3612
 				
 Team 07	Members	Luma	RSVP	WhatsApp
-LEAD	Cristian Carballo	TRUE	FALSE	+503 7623 0741
-	Karla Fuentes	TRUE	FALSE	+503 7269 8263
+LEAD	Cristian Carballo	TRUE	TRUE	+503 7623 0741
+	Karla Fuentes	TRUE	TRUE	+503 7269 8263
 				
 Team 08	Members	Luma	RSVP	WhatsApp
 LEAD	Daniela Huezo	TRUE	TRUE	+503 7095 6453
@@ -229,7 +229,7 @@ LEAD	Karina Alvarez	TRUE	TRUE	+503 7535 0582
 	Estefany Quezada	TRUE	TRUE	+503 7208 8850
 				
 Team 46	Members	Luma	RSVP	WhatsApp
-LEAD	Emma Godoy	TRUE	FALSE	+503 7707 5716
-	Jose Manzanares	FALSE	FALSE	
-	Fernando Juarez	FALSE	FALSE	
-	Alejandra Martinez	TRUE	FALSE	+503 6179 7182
+LEAD	Emma Godoy	TRUE	TRUE	+503 7707 5716
+	Georgina de Galdamez	TRUE	TRUE	+503 7170 1273
+	Fernando Juarez	TRUE	TRUE	+503 7330 3280
+	Alejandra Martinez	TRUE	TRUE	+503 6179 7182
