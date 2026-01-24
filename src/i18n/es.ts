@@ -170,4 +170,42 @@ export const es = {
     title_part2: "Movimiento",
     description: "Ayúdanos a construir la primera hackatón Cursor en Centroamérica. Múltiples formas de participar.",
   },
+  event: {
+    password_title: "Acceso requerido",
+    password_subtitle: "Ingresa la contraseña del evento para ver las especificaciones",
+    password_placeholder: "Ingresa la contraseña...",
+    password_button: "Desbloquear",
+    password_error: "Contraseña incorrecta. Intenta de nuevo.",
+    password_hint: "Pista: Pide acceso a los organizadores",
+    title: "Especificaciones del evento",
+    subtitle: "Documentación interna para la ejecución de la hackatón",
+    wip_badge: "En desarrollo",
+    sections: {
+      introduction: {
+        title: "Introducción",
+        subtitle: "Resumen del evento y objetivos",
+        content: "Contenido próximamente...",
+      },
+      sponsors: {
+        title: "Patrocinadores",
+        subtitle: "Detalles y compromisos de los partners",
+        content: "Contenido próximamente...",
+      },
+      prizes: {
+        title: "Premios y categorías",
+        subtitle: "Premios y categorías de competencia",
+        content: "Contenido próximamente...",
+      },
+      theme: {
+        title: "Tema",
+        subtitle: "Tema de la hackatón y áreas de enfoque",
+        content: "Contenido próximamente...",
+      },
+      judges: {
+        title: "Jueces",
+        subtitle: "Panel del jurado y proceso de evaluación",
+        content: "Contenido próximamente...",
+      },
+    },
+  },
 };
