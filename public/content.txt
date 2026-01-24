@@ -30,11 +30,6 @@ LEAD	Astrid Aleman	TRUE	TRUE	+503 7030 7060
 	Roberto Flores	TRUE	TRUE	+503 7737 2990
 	Mauricio Gomez	TRUE	TRUE	+503 7886 1215
 				
-Team 06	Members	Luma	RSVP	WhatsApp
-LEAD	BRYAN ESCOBAR	TRUE	FALSE	+503 7650 8926
-	Kevin Rodriguez	TRUE	FALSE	+503 7061 2813
-	Andres Galan	TRUE	FALSE	+503 7228 3612
-				
 Team 07	Members	Luma	RSVP	WhatsApp
 LEAD	Cristian Carballo	TRUE	TRUE	+503 7623 0741
 	Karla Fuentes	TRUE	TRUE	+503 7269 8263
@@ -71,6 +66,7 @@ Team 16	Members	Luma	RSVP	WhatsApp
 LEAD	Giancarlo Pablo	TRUE	TRUE	+503 6133 6814
 	Nelson Hernández	TRUE	TRUE	+503 7382 1019
 	Eva Magaña	TRUE	TRUE	+503 7743 7490
+	Noah Lara	TRUE	TRUE	+503 7753 4823
 				
 Team 17	Members	Luma	RSVP	WhatsApp
 LEAD	Gino Stefano Miles Martínez	TRUE	TRUE	+503 7408 2180
@@ -94,10 +90,10 @@ LEAD	Jesús Gerardo Esquivel Ramírez	TRUE	TRUE	+503 7708 5832
 	Lenny Adrián Elías Sánchez	TRUE	TRUE	+503 6308 1131
 				
 Team 22	Members	Luma	RSVP	WhatsApp
-LEAD	Jorge Monge	TRUE	FALSE	+503 7161 6210
-	Elison Isai Gonzalez Sanchez	TRUE	FALSE	+503 7087 7599
-	OSMIN ARIEL LOPEZ CLAROS	TRUE	FALSE	+503 7444 4297
-	Rony Bonilla	TRUE	FALSE	+503 7387 2514
+LEAD	Jorge Monge	TRUE	TRUE	+503 7161 6210
+	Elison Isai Gonzalez Sanchez	TRUE	TRUE	+503 7087 7599
+	OSMIN ARIEL LOPEZ CLAROS	TRUE	TRUE	+503 7444 4297
+	Rony Bonilla	TRUE	TRUE	+503 7387 2514
 				
 Team 23	Members	Luma	RSVP	WhatsApp
 LEAD	Josue Citalan	TRUE	TRUE	+502 3059 8114
