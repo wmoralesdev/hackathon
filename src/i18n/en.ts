@@ -2,6 +2,7 @@ export const en = {
   nav: {
     register: "Register",
     teams: "Teams",
+    language: "Language",
   },
   teams: {
     title: "Teams",
