@@ -2,6 +2,7 @@ export const en = {
   nav: {
     register: "Register",
     teams: "Teams",
+    language: "Language",
   },
   teams: {
     title: "Teams",
@@ -168,5 +169,43 @@ export const en = {
     title_part1: "Support the",
     title_part2: "Movement",
     description: "Help us build Central America's first Cursor hackathon. Multiple ways to get involved.",
+  },
+  event: {
+    password_title: "Access Required",
+    password_subtitle: "Enter the event password to view specifications",
+    password_placeholder: "Enter password...",
+    password_button: "Unlock",
+    password_error: "Incorrect password. Try again.",
+    password_hint: "Hint: Ask the organizers for access",
+    title: "Event Specifications",
+    subtitle: "Internal documentation for hackathon execution",
+    wip_badge: "Work in Progress",
+    sections: {
+      introduction: {
+        title: "Introduction",
+        subtitle: "Event overview and objectives",
+        content: "Content coming soon...",
+      },
+      sponsors: {
+        title: "Sponsors",
+        subtitle: "Partner details and commitments",
+        content: "Content coming soon...",
+      },
+      prizes: {
+        title: "Prizes & Tracks",
+        subtitle: "Awards and competition categories",
+        content: "Content coming soon...",
+      },
+      theme: {
+        title: "Theme",
+        subtitle: "Hackathon theme and focus areas",
+        content: "Content coming soon...",
+      },
+      judges: {
+        title: "Judges",
+        subtitle: "Jury panel and evaluation process",
+        content: "Content coming soon...",
+      },
+    },
   },
 };
