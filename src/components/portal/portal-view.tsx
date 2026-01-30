@@ -46,7 +46,8 @@ interface PortalViewProps {
   }>
 }
 
-const FREEZE_TIME = new Date("2026-01-31T14:30:00")
+// Code freeze: January 31, 2026 at 2:30 PM El Salvador time (UTC-6)
+const FREEZE_TIME = new Date("2026-01-31T14:30:00-06:00")
 
 export function PortalView({
   dict,

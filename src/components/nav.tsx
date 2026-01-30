@@ -61,6 +61,12 @@ export function Nav({ dict }: { dict: Dictionary }) {
           >
             {dict.nav.teams}
           </Link>
+          <Link
+            href={`/${currentLang}/showcase`}
+            className="text-sm font-mono text-foreground/70 hover:text-accent transition-colors"
+          >
+            {dict.showcase.title}
+          </Link>
           {/* TEMPORARY: Replaced LanguageSwitcher with EN/ES buttons styled like register button */}
           {/* <LanguageSwitcher /> */}
           <div className="flex items-center gap-2">
@@ -81,12 +87,11 @@ export function Nav({ dict }: { dict: Dictionary }) {
               <Link href={esPath}>ES</Link>
             </Button>
           </div>
-          {/* TEMPORARY: Register button hidden - uncomment to restore */}
-          {/* <Button asChild variant="primary" size="sm">
-            <Link href="#register">
-              {dict.nav.register}
+          <Button asChild variant="primary" size="sm">
+            <Link href={`/${currentLang}/portal/auth`}>
+              {dict.nav.login}
             </Link>
-          </Button> */}
+          </Button>
         </div>
 
         {/* Mobile Menu Button */}
@@ -111,6 +116,13 @@ export function Nav({ dict }: { dict: Dictionary }) {
             onClick={() => setMobileMenuOpen(false)}
           >
             {dict.nav.teams}
+          </Link>
+          <Link
+            href={`/${currentLang}/showcase`}
+            className="text-sm font-mono text-foreground/70 hover:text-accent transition-colors py-2"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            {dict.showcase.title}
           </Link>
             {/* TEMPORARY: Replaced LanguageSwitcher with EN/ES buttons styled like register button */}
             {/* <div className="flex items-center justify-between py-2">
@@ -139,12 +151,11 @@ export function Nav({ dict }: { dict: Dictionary }) {
                 <Link href={esPath}>ES</Link>
               </Button>
             </div>
-            {/* TEMPORARY: Register button hidden - uncomment to restore */}
-            {/* <Button asChild variant="primary" size="sm" className="w-full">
-              <Link href="#register" onClick={() => setMobileMenuOpen(false)}>
-                {dict.nav.register}
+            <Button asChild variant="primary" size="sm" className="w-full">
+              <Link href={`/${currentLang}/portal/auth`} onClick={() => setMobileMenuOpen(false)}>
+                {dict.nav.login}
               </Link>
-            </Button> */}
+            </Button>
           </div>
         </div>
       )}

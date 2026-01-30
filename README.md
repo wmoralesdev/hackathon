@@ -1,5 +1,24 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Environment Variables
+
+Create a `.env.local` file in the root directory with the following variables:
+
+### Required
+
+- `DATABASE_URL` - PostgreSQL database connection string
+- `NEXT_PUBLIC_SUPABASE_URL` - Your Supabase project URL
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Your Supabase anonymous key
+- `FIRECRAWL_API_KEY` - Firecrawl API key for showcase scraping (get from https://firecrawl.dev)
+
+### Optional
+
+- `ADMIN_EMAILS` - Comma-separated list of admin email addresses (e.g., `admin@example.com,admin2@example.com`)
+- `FIRECRAWL_BASE_URL` - Firecrawl API base URL (default: `https://api.firecrawl.dev`)
+- `FIRECRAWL_TIMEOUT` - Request timeout in milliseconds (default: `30000`)
+- `FIRECRAWL_MAX_RETRIES` - Maximum retry attempts (default: `3`)
+- `FIRECRAWL_RETRY_DELAY` - Delay between retries in milliseconds (default: `1000`)
+
 ## Getting Started
 
 First, run the development server:

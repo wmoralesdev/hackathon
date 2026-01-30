@@ -1,6 +1,7 @@
 export const es = {
   nav: {
     register: "Registrarse",
+    login: "Iniciar Sesión",
     teams: "Equipos",
     language: "Idioma",
   },
