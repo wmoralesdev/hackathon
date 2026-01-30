@@ -55,6 +55,14 @@ export function generateLandingMetadata({
       siteName: "Cursor Hackathon San Salvador",
       title,
       description,
+      images: [
+        {
+          url: `${SITE_URL}/og-image.png`,
+          width: 1200,
+          height: 630,
+          alt: "Cursor Hackathon San Salvador",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
@@ -62,6 +70,7 @@ export function generateLandingMetadata({
       description,
       creator: "@cursorsv",
       site: "@cursorsv",
+      images: [`${SITE_URL}/og-image.png`],
     },
     robots: {
       index: true,
