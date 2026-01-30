@@ -1,0 +1,105 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Profile {
+  id              String   @id @default(uuid()) @db.Uuid
+  participantName String   @map("participant_name")
+  teamNumber      Int      @map("team_number")
+  isLead          Boolean  @default(false) @map("is_lead")
+  createdAt       DateTime @default(now()) @map("created_at")
+  
+  submissions     DeliverableSubmission[]
+  socialPostsSubmitted SocialPost[] @relation("SocialPostSubmittedBy")
+  socialPostsRemoved   SocialPost[] @relation("SocialPostRemovedBy")
+  
+  @@map("profiles")
+}
+
+model Deliverable {
+  id             String   @id @default(uuid()) @db.Uuid
+  teamNumber     Int      @unique @map("team_number")
+  saasUrl        String?  @map("saas_url")
+  updatedAt      DateTime? @updatedAt @map("updated_at")
+  
+  submissions    DeliverableSubmission[]
+  
+  @@map("deliverables")
+}
+
+model DeliverableSubmission {
+  id            String   @id @default(uuid()) @db.Uuid
+  deliverableId String   @map("deliverable_id") @db.Uuid
+  submittedById String   @map("submitted_by") @db.Uuid
+  action        String   // "saas_created", "saas_updated"
+  value         String   // The SaaS URL
+  submittedAt   DateTime @default(now()) @map("submitted_at")
+  
+  deliverable   Deliverable @relation(fields: [deliverableId], references: [id], onDelete: Cascade)
+  submittedBy   Profile     @relation(fields: [submittedById], references: [id])
+  
+  @@map("deliverable_submissions")
+}
+
+enum SocialPlatform {
+  x
+  linkedin
+}
+
+model SocialPost {
+  id            String         @id @default(uuid()) @db.Uuid
+  teamNumber    Int            @map("team_number")
+  url           String
+  platform      SocialPlatform
+  submittedById String         @map("submitted_by") @db.Uuid
+  submittedAt   DateTime       @default(now()) @map("submitted_at")
+
+  removedAt     DateTime?      @map("removed_at")
+  removedById   String?        @map("removed_by") @db.Uuid
+
+  oembedJson    Json?          @map("oembed_json")
+  ogJson        Json?          @map("og_json")
+  lastFetchedAt DateTime?      @map("last_fetched_at")
+  fetchError    String?        @map("fetch_error")
+
+  submittedBy   Profile        @relation("SocialPostSubmittedBy", fields: [submittedById], references: [id])
+  removedBy     Profile?       @relation("SocialPostRemovedBy", fields: [removedById], references: [id])
+
+  @@unique([teamNumber, url])
+  @@index([teamNumber])
+  @@map("social_posts")
+}
+
+model ShowcaseSnapshot {
+  id            String   @id @default(uuid()) @db.Uuid
+  teamNumber    Int      @unique @map("team_number")
+  sourceUrl     String   @map("source_url")
+  
+  title         String?  @db.Text
+  description   String?  @db.Text
+  ogJson        Json?    @map("og_json")
+  markdown      String?  @db.Text
+  summary       String?  @db.Text
+  screenshotUrl String?  @map("screenshot_url") @db.Text
+  links         Json?    // Array of link objects
+  
+  lastFetchedAt DateTime? @map("last_fetched_at")
+  fetchError    String?   @map("fetch_error")
+  
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+  
+  @@index([teamNumber])
+  @@map("showcase_snapshots")
+}

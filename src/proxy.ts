@@ -1,40 +1,48 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { updateSession } from "@/lib/supabase/middleware";
+import { NextResponse, type NextRequest } from "next/server";
 
 const locales = ["en", "es"];
 const defaultLocale = "es";
 
-export function proxy(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  // Check if there is any supported locale in the pathname
+  // Handle locale routing
   const pathnameIsMissingLocale = locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
   );
 
-  // Exclude public files (images, etc)
+  // Exclude public files, API routes, and static assets
   if (
     pathname.startsWith("/_next") ||
     pathname.includes(".") || // files like favicon.ico, sitemap.xml
     pathname.startsWith("/api")
   ) {
-    return;
+    // Still update auth session for API routes
+    return await updateSession(request);
   }
 
+  // Redirect to default locale if missing
   if (pathnameIsMissingLocale) {
-    // Detect user preference? For now simple default.
-    // Ideally we parse Accept-Language.
     const locale = defaultLocale;
-
     return NextResponse.redirect(
       new URL(`/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}`, request.url)
     );
   }
+
+  // Handle auth session updates
+  return await updateSession(request);
 }
 
 export const config = {
   matcher: [
-    // Skip all internal paths (_next)
-    "/((?!_next).*)",
+    /*
+     * Match all request paths except for the ones starting with:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - public folder
+     */
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };

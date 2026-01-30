@@ -83,7 +83,7 @@ export function SponsorshipCTA({ dict }: { dict: Dictionary }) {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-accent/30 bg-accent/5 mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 border border-accent/30 bg-accent/5 mb-4">
             <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
             <span className="text-xs font-mono text-accent uppercase tracking-wider">{dict.sponsorship_cta.badge}</span>
           </div>
@@ -115,7 +115,7 @@ export function SponsorshipCTA({ dict }: { dict: Dictionary }) {
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className={cn(
-                    "p-2.5 rounded-lg transition-colors",
+                    "p-2.5 transition-colors",
                     completed 
                       ? "bg-accent/20 text-accent" 
                       : "bg-white/5 text-foreground/40 group-hover:bg-accent/10 group-hover:text-accent"
@@ -123,7 +123,7 @@ export function SponsorshipCTA({ dict }: { dict: Dictionary }) {
                     {option.icon}
                   </div>
                   {completed && (
-                    <span className="text-[10px] font-mono text-accent bg-accent/10 px-1.5 py-0.5 rounded">
+                    <span className="text-[10px] font-mono text-accent bg-accent/10 px-1.5 py-0.5">
                       NOTED
                     </span>
                   )}

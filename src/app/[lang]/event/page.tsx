@@ -19,5 +19,5 @@ export default async function EventPage({
       </main>
       <Footer dict={dict} />
     </div>
-  );
+  )
 }

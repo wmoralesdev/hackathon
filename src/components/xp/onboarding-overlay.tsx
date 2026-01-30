@@ -42,7 +42,7 @@ export function OnboardingOverlay() {
             <li>Debug glitchy text</li>
             <li>Commit timeline items</li>
             <li>Deploy components</li>
-            <li>Use <span className="bg-white/10 px-1 rounded">Cmd+K</span> for secrets</li>
+            <li>Use <span className="bg-white/10 px-1">Cmd+K</span> for secrets</li>
           </ul>
         </div>
       )

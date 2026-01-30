@@ -23,7 +23,7 @@ export function XpWidget() {
         {/* Reset Button (Floating) */}
         <div className="relative">
           {showResetConfirm && (
-             <div className="absolute bottom-full right-0 mb-2 p-2 bg-black/90 border border-red-500/50 rounded flex flex-col gap-2 min-w-[150px] animate-in slide-in-from-bottom-2 fade-in">
+             <div className="absolute bottom-full right-0 mb-2 p-2 bg-black/90 border border-red-500/50 flex flex-col gap-2 min-w-[150px] animate-in slide-in-from-bottom-2 fade-in">
                <div className="text-[10px] text-red-500 font-mono font-bold uppercase text-center">Confirm Reset?</div>
                <div className="flex gap-2">
                  <button 

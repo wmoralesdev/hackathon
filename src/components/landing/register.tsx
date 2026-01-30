@@ -35,7 +35,7 @@ export function Register({ dict }: { dict: Dictionary }) {
             <div className="flex justify-center">
               <a
                 href="https://luma.com/event/evt-tkoz9MA8IzqktV7"
-                className="luma-checkout--button inline-flex items-center gap-3 px-8 py-4 bg-accent hover:bg-accent/90 text-white font-bold uppercase tracking-wider text-sm rounded-lg transition-all hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(245,78,0,0.3)] group relative"
+                className="luma-checkout--button inline-flex items-center gap-3 px-8 py-4 bg-accent hover:bg-accent/90 text-white font-bold uppercase tracking-wider text-sm transition-all hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(245,78,0,0.3)] group relative"
                 data-luma-action="checkout"
                 data-luma-event-id="evt-tkoz9MA8IzqktV7"
               >

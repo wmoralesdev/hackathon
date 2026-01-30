@@ -52,7 +52,7 @@ export function Considerations({ dict }: { dict: Dictionary }) {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-orange-500/20">
+            <div className="p-2 bg-orange-500/20">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-orange-500" aria-hidden="true">
                 <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
                 <path d="M12 9v4" />
@@ -62,7 +62,7 @@ export function Considerations({ dict }: { dict: Dictionary }) {
             <h2 className="text-sm font-mono text-accent uppercase tracking-wider">{dict.considerations.title}</h2>
           </div>
           {allAcknowledged && (
-            <span className="text-[10px] font-mono text-orange-500 bg-orange-500/10 px-2 py-0.5 rounded border border-orange-500/20">
+            <span className="text-[10px] font-mono text-orange-500 bg-orange-500/10 px-2 py-0.5 border border-orange-500/20">
               ALL ACKNOWLEDGED
             </span>
           )}
@@ -86,7 +86,7 @@ export function Considerations({ dict }: { dict: Dictionary }) {
               >
                 <div className="flex items-start gap-3">
                   <div className={cn(
-                    "p-2 rounded-lg shrink-0 transition-colors",
+                    "p-2 shrink-0 transition-colors",
                     acknowledged 
                       ? "bg-orange-500/20 text-orange-500" 
                       : "bg-white/5 text-foreground/40 group-hover:bg-orange-500/10 group-hover:text-orange-500"

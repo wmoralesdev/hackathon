@@ -52,7 +52,7 @@ const Modal = React.forwardRef<HTMLDialogElement, ModalProps>(
       >
         <div className="fixed inset-0 z-50 flex items-stretch p-4 sm:p-6">
           <div 
-            className="w-full max-w-lg overflow-hidden rounded-xl border border-white/10 bg-card p-6 shadow-2xl flex flex-col"
+            className="w-full max-w-lg overflow-hidden border border-white/10 bg-card p-6 shadow-2xl flex flex-col"
             onClick={(e) => e.stopPropagation()}
             onKeyDown={(e) => e.stopPropagation()}
           >

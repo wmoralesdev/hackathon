@@ -1,20 +1,33 @@
 "use client"
 
-import * as React from "react"
-import { Dictionary } from "@/i18n/utils"
+import type { MouseEvent } from "react"
+import type { Dictionary } from "@/i18n/utils"
 import { Card } from "@/ui/card"
-import { Badge } from "@/ui/badge"
-import { Shard } from "@/components/xp/shard"
 import { useXp } from "@/components/xp/xp-provider"
 import { useXpFloater } from "@/components/xp/xp-floater"
 import { cn } from "@/lib/utils"
+import { Calendar, Clock, MapPin, Check } from "lucide-react"
+
+function ScannedBadge() {
+  return (
+    <div className="flex items-center gap-1.5 px-2 py-1 bg-green-500/10 border border-green-500/20 text-green-400 animate-in fade-in zoom-in duration-300">
+      <Check className="w-3 h-3" />
+      <span className="text-[10px] font-mono font-bold tracking-wider">SCANNED</span>
+    </div>
+  )
+}
+
+function ScanIndicator() {
+  return (
+    <div className="w-2 h-2 rounded-full bg-white/10 group-hover:bg-accent transition-colors" />
+  )
+}
 
 export function GridSection({ dict }: { dict: Dictionary }) {
   const { completeAction, actions } = useXp()
   const { spawnFloater } = useXpFloater()
   
-  const handleScan = (id: string, xp: number, label: string, e: React.MouseEvent) => {
-    // Prevent double triggering if clicking children like chips
+  const handleScan = (id: string, xp: number, label: string, e: MouseEvent) => {
     e.stopPropagation()
     
     const completed = completeAction(id, { xp })
@@ -23,159 +36,103 @@ export function GridSection({ dict }: { dict: Dictionary }) {
     }
   }
 
-  const handleChipToggle = (chip: string, e: React.MouseEvent) => {
-    e.stopPropagation()
-    const id = `grid_chip_${chip.toLowerCase()}`
-    const completed = completeAction(id, { xp: 15 })
-    if (completed) {
-      spawnFloater(e.clientX, e.clientY, `+15xp // ROLE_${chip.toUpperCase()}`, "text-accent")
-    }
-  }
-
   const isScanned = (id: string) => actions.includes(id)
 
   return (
     <section id="grid" className="container mx-auto px-4 py-12 relative">
-      <Shard id="shard-1" className="top-0 right-10" />
-      
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 auto-rows-[minmax(180px,auto)]">
+      <div className="max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         
-        {/* When */}
+        {/* Date */}
         <Card 
           level={1} 
-          interactive 
-          onClick={(e) => handleScan("grid_when", 25, "SCAN_DATE", e)}
+          interactive={!isScanned("grid_date")}
+          onClick={(e) => handleScan("grid_date", 25, "SCAN_DATE", e)}
           className={cn(
-            "relative p-6 flex flex-col justify-between animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100 overflow-hidden",
-            isScanned("grid_when") && "border-green-500/30"
+            "group relative p-6 flex flex-col justify-between overflow-hidden transition-all duration-500",
+            isScanned("grid_date") && "border-green-500/50 bg-green-500/5 shadow-[0_0_30px_rgba(34,197,94,0.1)]"
           )}
         >
-          <div className="flex justify-between items-start">
-            <span className="text-xs font-mono text-accent uppercase tracking-wider">{dict.grid.when}</span>
-            {isScanned("grid_when") && <span className="text-[10px] font-mono text-green-500 bg-green-500/10 px-1 rounded">SCANNED</span>}
-          </div>
-          <div>
-            <div className="text-4xl font-bold tracking-tighter text-foreground">31</div>
-            <div className="text-xl text-foreground/80">January 2026</div>
-          </div>
-          <Shard id="shard-2" className="bottom-2 right-2" />
-        </Card>
-
-        {/* Builders */}
-        <Card 
-          level={1} 
-          interactive 
-          onClick={(e) => handleScan("grid_builders", 25, "SCAN_COUNT", e)}
-          className={cn(
-            "p-6 flex flex-col justify-between animate-in fade-in slide-in-from-bottom-4 duration-700 delay-150",
-            isScanned("grid_builders") && "border-green-500/30"
-          )}
-        >
-          <div className="flex justify-between items-start">
-            <span className="text-xs font-mono text-accent uppercase tracking-wider">{dict.grid.builders}</span>
-            {isScanned("grid_builders") && <span className="text-[10px] font-mono text-green-500 bg-green-500/10 px-1 rounded">SCANNED</span>}
-          </div>
-          <div className="text-5xl font-bold tracking-tighter text-foreground">100</div>
-        </Card>
-
-        {/* Vision */}
-        <Card 
-          level={2} 
-          interactive 
-          onClick={(e) => handleScan("grid_vision", 50, "SCAN_VISION", e)}
-          className={cn(
-            "p-6 md:col-span-2 flex flex-col justify-between animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200",
-            isScanned("grid_vision") && "border-green-500/30"
-          )}
-        >
-          <div className="flex justify-between items-start">
-            <span className="text-xs font-mono text-accent uppercase tracking-wider">{dict.grid.vision.title}</span>
-            {isScanned("grid_vision") && <span className="text-[10px] font-mono text-green-500 bg-green-500/10 px-1 rounded">SCANNED</span>}
-          </div>
-          <div className="space-y-4 mt-4">
-            <div>
-              <h3 className="text-xl font-semibold text-foreground">{dict.grid.vision.p1}</h3>
-              <p className="text-sm text-foreground/60">{dict.grid.vision.p2}</p>
+          <div className="flex justify-between items-start z-10">
+            <div className="flex items-center gap-2 text-accent/80">
+              <Calendar className="w-4 h-4" />
+              <span className="text-xs font-mono uppercase tracking-wider">{dict.grid.when}</span>
             </div>
-            <div>
-              <p className="text-sm text-foreground/60">{dict.grid.vision.p3}</p>
+            {isScanned("grid_date") ? <ScannedBadge /> : <ScanIndicator />}
+          </div>
+          <div className="z-10 mt-4">
+            <div className="text-4xl font-black tracking-tighter text-foreground mb-1">
+              {dict.hero.date.split(",")[0]}
+            </div>
+            <div className="text-lg font-mono text-foreground/60">
+              {dict.hero.date.split(",").slice(1).join(",").trim()}
             </div>
           </div>
+          
+          {/* Decorative background number */}
+          <div className="absolute -right-4 -bottom-8 text-[100px] font-black text-white/5 select-none pointer-events-none">
+            31
+          </div>
         </Card>
 
-        {/* Duration */}
+        {/* Schedule */}
         <Card 
           level={1} 
-          interactive 
-          onClick={(e) => handleScan("grid_duration", 25, "SCAN_TIME", e)}
+          interactive={!isScanned("grid_schedule")}
+          onClick={(e) => handleScan("grid_schedule", 25, "SCAN_TIME", e)}
           className={cn(
-            "p-6 flex flex-col justify-between animate-in fade-in slide-in-from-bottom-4 duration-700 delay-250",
-            isScanned("grid_duration") && "border-green-500/30"
+            "group relative p-6 flex flex-col justify-between overflow-hidden transition-all duration-500",
+            isScanned("grid_schedule") && "border-green-500/50 bg-green-500/5 shadow-[0_0_30px_rgba(34,197,94,0.1)]"
           )}
         >
-          <div className="flex justify-between items-start">
-            <span className="text-xs font-mono text-accent uppercase tracking-wider">{dict.grid.duration}</span>
-            {isScanned("grid_duration") && <span className="text-[10px] font-mono text-green-500 bg-green-500/10 px-1 rounded">SCANNED</span>}
+          <div className="flex justify-between items-start z-10">
+            <div className="flex items-center gap-2 text-accent/80">
+              <Clock className="w-4 h-4" />
+              <span className="text-xs font-mono uppercase tracking-wider">{dict.grid.duration}</span>
+            </div>
+            {isScanned("grid_schedule") ? <ScannedBadge /> : <ScanIndicator />}
           </div>
-          <div>
-            <div className="text-5xl font-bold tracking-tighter text-foreground">7</div>
-            <div className="text-xl text-foreground/80">Hrs*</div>
+          <div className="z-10 mt-4">
+            <div className="text-3xl font-black tracking-tighter text-foreground mb-1">
+              {dict.hero.time}
+            </div>
           </div>
+          
+          <Clock className="absolute -right-6 -bottom-6 w-32 h-32 text-white/5 pointer-events-none" />
         </Card>
 
         {/* Location */}
         <Card 
           level={1} 
-          interactive 
+          interactive={!isScanned("grid_location")}
           onClick={(e) => handleScan("grid_location", 25, "SCAN_LOC", e)}
           className={cn(
-            "p-6 flex flex-col justify-between animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300",
-            isScanned("grid_location") && "border-green-500/30"
+            "group relative p-6 flex flex-col justify-between overflow-hidden transition-all duration-500",
+            isScanned("grid_location") && "border-green-500/50 bg-green-500/5 shadow-[0_0_30px_rgba(34,197,94,0.1)]"
           )}
         >
-           <div className="flex justify-between items-start">
-            <span className="text-xs font-mono text-accent uppercase tracking-wider">{dict.grid.location}</span>
-            {isScanned("grid_location") && <span className="text-[10px] font-mono text-green-500 bg-green-500/10 px-1 rounded">SCANNED</span>}
+          <div className="flex justify-between items-start z-10">
+            <div className="flex items-center gap-2 text-accent/80">
+              <MapPin className="w-4 h-4" />
+              <span className="text-xs font-mono uppercase tracking-wider">{dict.grid.location}</span>
+            </div>
+            {isScanned("grid_location") ? <ScannedBadge /> : <ScanIndicator />}
           </div>
-          <div className="text-xl font-bold text-foreground max-w-[150px]">{dict.hero.location}</div>
-        </Card>
-
-        {/* Who can join */}
-        <Card 
-          level={3} 
-          interactive 
-          onClick={(e) => handleScan("grid_join", 50, "SCAN_ROLES", e)}
-          className={cn(
-            "relative p-6 md:col-span-2 flex flex-col justify-center animate-in fade-in slide-in-from-bottom-4 duration-700 delay-350 overflow-hidden",
-            isScanned("grid_join") && "border-green-500/30"
-          )}
-        >
-          <Shard id="shard-3" className="top-4 right-4" />
-          <div className="flex justify-between items-start mb-2">
-            <span className="text-xs font-mono text-accent uppercase tracking-wider">{dict.grid.join.title}</span>
-            {isScanned("grid_join") && <span className="text-[10px] font-mono text-green-500 bg-green-500/10 px-1 rounded">SCANNED</span>}
-          </div>
-          <p className="text-2xl font-medium text-foreground leading-tight mb-2">
-            {dict.grid.join.text}
-          </p>
-          <p className="text-sm text-foreground/60 mb-4">
-            {dict.grid.no_code}
-          </p>
-          <div className="flex gap-2 flex-wrap">
-            {["Builders", "Designers", "Marketers"].map((role) => (
-              <Badge 
-                key={role}
-                variant={actions.includes(`grid_chip_${role.toLowerCase()}`) ? "default" : "secondary"}
-                className={cn(
-                  "cursor-pointer hover:bg-accent hover:text-white transition-colors",
-                  actions.includes(`grid_chip_${role.toLowerCase()}`) && "bg-accent text-white"
-                )}
-                onClick={(e) => handleChipToggle(role, e)}
-              >
-                {role}
-              </Badge>
-            ))}
+          <div className="z-10 mt-4 flex flex-col gap-3">
+            <div className="flex items-center justify-center mb-2">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/sponsors/uca.svg"
+                alt="UCA Logo"
+                className="h-12 w-auto object-contain invert opacity-80"
+              />
+            </div>
+            <div className="text-sm font-bold text-foreground leading-snug text-center">
+              {dict.hero.location.split(" - ")[0]}
+            </div>
+            <div className="text-xs font-mono text-foreground/60 text-center border-t border-white/10 pt-2">
+              {dict.hero.location.split(" - ")[1] || dict.hero.location.split("- ")[1]}
+            </div>
           </div>
         </Card>
 

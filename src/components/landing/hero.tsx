@@ -49,10 +49,6 @@ export function Hero({ dict }: { dict: Dictionary }) {
       <p className="text-sm font-mono text-foreground/50 mb-6 animate-in fade-in duration-500 delay-100">
         {dict.hero.location}
       </p>
-
-      <p className="text-xs font-mono text-foreground/40 mb-8 animate-in fade-in duration-500 delay-150">
-        {dict.hero.time_note}
-      </p>
       
       <div className="relative mb-6 group cursor-help" onClick={handleFixGlitch}>
          <h1 className={cn(
@@ -74,7 +70,7 @@ export function Hero({ dict }: { dict: Dictionary }) {
         
         {!isFixed && (
           <div className="absolute -right-16 top-0 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity animate-pulse">
-            <span className="text-xs font-mono text-red-500 bg-red-500/10 px-2 py-1 border border-red-500/50 rounded">
+            <span className="text-xs font-mono text-red-500 bg-red-500/10 px-2 py-1 border border-red-500/50">
               ⚠ // CLICK TO DEBUG
             </span>
           </div>
@@ -88,11 +84,6 @@ export function Hero({ dict }: { dict: Dictionary }) {
       
       <div className="flex flex-col gap-4 sm:flex-row animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
         <Button size="lg" className="h-14 px-10 text-lg relative overflow-visible" asChild>
-          <a href="#register">
-            {dict.hero.cta}
-          </a>
-        </Button>
-        <Button size="lg" variant="outline" className="h-14 px-10 text-lg border-accent/30 hover:bg-accent/10" asChild>
           <a 
             href="https://chat.whatsapp.com/Ga8mG1fqDM9C0ryxAw1eIj" 
             target="_blank" 

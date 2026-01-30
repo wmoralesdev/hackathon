@@ -61,7 +61,7 @@ export function Prep({ dict }: { dict: Dictionary }) {
               {checkedCount} / {totalItems} READY
             </span>
             {allComplete && (
-              <span className="text-[10px] font-mono text-green-500 bg-green-500/10 px-2 py-0.5 rounded border border-green-500/20 animate-pulse">
+              <span className="text-[10px] font-mono text-green-500 bg-green-500/10 px-2 py-0.5 border border-green-500/20 animate-pulse">
                 SYSTEMS READY
               </span>
             )}
@@ -69,7 +69,7 @@ export function Prep({ dict }: { dict: Dictionary }) {
 
           {/* Progress Bar */}
           <div className="max-w-xs mx-auto mt-4">
-            <div className="h-2 w-full bg-black/50 rounded-full overflow-hidden border border-white/5">
+            <div className="h-2 w-full bg-black/50 overflow-hidden border border-white/5">
               <div 
                 className={cn(
                   "h-full transition-all duration-500 ease-out",
@@ -91,12 +91,12 @@ export function Prep({ dict }: { dict: Dictionary }) {
               
               return (
                 <button
-                  key={item}
+                  key={item.title}
                   type="button"
                   onClick={(e) => handleCheck(index, e)}
                   aria-pressed={checked}
                   className={cn(
-                    "group relative flex items-center gap-4 p-4 rounded-lg border transition-all cursor-pointer w-full text-left",
+                    "group relative flex items-start gap-4 p-4 border transition-all cursor-pointer w-full text-left",
                     checked 
                       ? "border-green-500/30 bg-green-500/5" 
                       : "border-white/5 hover:border-accent/30 hover:bg-accent/5"
@@ -122,7 +122,7 @@ export function Prep({ dict }: { dict: Dictionary }) {
 
                   {/* Item Number */}
                   <span className={cn(
-                    "font-mono text-xs transition-colors",
+                    "font-mono text-xs transition-colors shrink-0 mt-0.5",
                     checked ? "text-green-500" : "text-foreground/20 group-hover:text-accent"
                   )}>
                     [{itemNumber}]
@@ -131,7 +131,7 @@ export function Prep({ dict }: { dict: Dictionary }) {
                   {/* Checkbox with HUD styling */}
                   <div
                     className={cn(
-                      "relative w-6 h-6 flex items-center justify-center transition-all",
+                      "relative w-6 h-6 flex items-center justify-center transition-all shrink-0 mt-0.5",
                       checked 
                         ? "text-green-500" 
                         : "text-white/20 group-hover:text-accent"
@@ -168,21 +168,31 @@ export function Prep({ dict }: { dict: Dictionary }) {
                     
                     {/* Glow effect when checked */}
                     {checked && (
-                      <div className="absolute inset-0 bg-green-500/20 blur-sm rounded -z-10" />
+                      <div className="absolute inset-0 bg-green-500/20 blur-sm -z-10" />
                     )}
                   </div>
 
-                  {/* Item text */}
-                  <span className={cn(
-                    "font-mono text-sm transition-all flex-1",
-                    checked ? "line-through text-foreground/40" : "text-foreground/80 group-hover:text-foreground"
-                  )}>
-                    {item}
-                  </span>
+                  {/* Item content */}
+                  <div className="flex-1 min-w-0">
+                    {/* Item title */}
+                    <div className={cn(
+                      "font-mono text-sm transition-all",
+                      checked ? "line-through text-foreground/40" : "text-foreground/80 group-hover:text-foreground"
+                    )}>
+                      {item.title}
+                    </div>
+                    {/* Item description */}
+                    <div className={cn(
+                      "font-mono text-xs mt-1.5 transition-all leading-relaxed",
+                      checked ? "text-foreground/30" : "text-foreground/50 group-hover:text-foreground/60"
+                    )}>
+                      {item.description}
+                    </div>
+                  </div>
 
                   {/* Status indicator */}
                   {checked && (
-                    <span className="text-[10px] font-mono text-green-500 bg-green-500/10 px-1.5 py-0.5 rounded">
+                    <span className="text-[10px] font-mono text-green-500 bg-green-500/10 px-1.5 py-0.5 shrink-0">
                       DONE
                     </span>
                   )}

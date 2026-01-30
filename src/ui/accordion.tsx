@@ -26,7 +26,7 @@ export function Accordion({ items, className }: AccordionProps) {
       {items.map((item) => (
         <details
           key={item.id}
-          className="group rounded-xl border border-white/5 bg-card px-4 open:bg-card-01 transition-colors"
+          className="group border border-white/5 bg-card px-4 open:bg-card-01 transition-colors"
         >
           <summary className="flex cursor-pointer items-center justify-between py-4 font-medium text-foreground [&::-webkit-details-marker]:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
             {item.trigger}

@@ -2,8 +2,10 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { Button } from "@/ui/button"
-import { LanguageSwitcher } from "@/components/language-switcher"
+// TEMPORARY: Commented out for refactor - using inline EN/ES buttons instead
+// import { LanguageSwitcher } from "@/components/language-switcher"
 import type { Dictionary } from "@/i18n/utils"
 
 function HamburgerIcon({ open }: { open: boolean }) {
@@ -26,6 +28,19 @@ function HamburgerIcon({ open }: { open: boolean }) {
 
 export function Nav({ dict }: { dict: Dictionary }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
+  
+  // Get current language and build language paths
+  const segments = pathname.split("/")
+  const currentLang = segments[1] || "en"
+  
+  const enSegments = [...segments]
+  enSegments[1] = "en"
+  const enPath = enSegments.join("/") || "/en"
+  
+  const esSegments = [...segments]
+  esSegments[1] = "es"
+  const esPath = esSegments.join("/") || "/es"
 
   return (
     <nav className="sticky top-0 z-40 w-full border-b border-white/5 bg-background/80 backdrop-blur-md">
@@ -35,7 +50,6 @@ export function Nav({ dict }: { dict: Dictionary }) {
           <div className="flex items-center gap-2">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/sponsors/cursor.webp" alt="Cursor" className="h-7 w-auto object-contain" />
-            <span>Hackathon</span>
           </div>
         </Link>
 
@@ -47,12 +61,32 @@ export function Nav({ dict }: { dict: Dictionary }) {
           >
             {dict.nav.teams}
           </Link>
-          <LanguageSwitcher />
-          <Button asChild variant="primary" size="sm">
+          {/* TEMPORARY: Replaced LanguageSwitcher with EN/ES buttons styled like register button */}
+          {/* <LanguageSwitcher /> */}
+          <div className="flex items-center gap-2">
+            <Button 
+              asChild 
+              variant={currentLang === "en" ? "primary" : "ghost"} 
+              size="sm"
+              className="font-mono text-xs"
+            >
+              <Link href={enPath}>EN</Link>
+            </Button>
+            <Button 
+              asChild 
+              variant={currentLang === "es" ? "primary" : "ghost"} 
+              size="sm"
+              className="font-mono text-xs"
+            >
+              <Link href={esPath}>ES</Link>
+            </Button>
+          </div>
+          {/* TEMPORARY: Register button hidden - uncomment to restore */}
+          {/* <Button asChild variant="primary" size="sm">
             <Link href="#register">
               {dict.nav.register}
             </Link>
-          </Button>
+          </Button> */}
         </div>
 
         {/* Mobile Menu Button */}
@@ -71,24 +105,46 @@ export function Nav({ dict }: { dict: Dictionary }) {
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-white/5 bg-background/95 backdrop-blur-md">
           <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
-            <Link
-              href="/es/equipos"
-              className="text-sm font-mono text-foreground/70 hover:text-accent transition-colors py-2"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {dict.nav.teams}
-            </Link>
-            <div className="flex items-center justify-between py-2">
+          <Link
+            href="/es/equipos"
+            className="text-sm font-mono text-foreground/70 hover:text-accent transition-colors py-2"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            {dict.nav.teams}
+          </Link>
+            {/* TEMPORARY: Replaced LanguageSwitcher with EN/ES buttons styled like register button */}
+            {/* <div className="flex items-center justify-between py-2">
               <span className="text-sm font-mono text-foreground/50">
                 {dict.nav.language || "Language"}
               </span>
               <LanguageSwitcher />
+            </div> */}
+            <div className="flex items-center gap-2">
+              <Button 
+                asChild 
+                variant={currentLang === "en" ? "primary" : "ghost"} 
+                size="sm"
+                className="font-mono text-xs flex-1"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Link href={enPath}>EN</Link>
+              </Button>
+              <Button 
+                asChild 
+                variant={currentLang === "es" ? "primary" : "ghost"} 
+                size="sm"
+                className="font-mono text-xs flex-1"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Link href={esPath}>ES</Link>
+              </Button>
             </div>
-            <Button asChild variant="primary" size="sm" className="w-full">
+            {/* TEMPORARY: Register button hidden - uncomment to restore */}
+            {/* <Button asChild variant="primary" size="sm" className="w-full">
               <Link href="#register" onClick={() => setMobileMenuOpen(false)}>
                 {dict.nav.register}
               </Link>
-            </Button>
+            </Button> */}
           </div>
         </div>
       )}

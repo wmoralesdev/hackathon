@@ -1,6 +1,7 @@
 import { Rajdhani, JetBrains_Mono } from "next/font/google";
 import { Providers } from "@/components/providers";
 import "../globals.css";
+import Script from 'next/script';
 
 const rajdhani = Rajdhani({
   weight: ["300", "400", "500", "600", "700"],
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       template: '%s | Cursor Hackathon',
       default: lang === 'es' ? 'Cursor Hackathon San Salvador' : 'Cursor Hackathon San Salvador',
     },
-    description: lang === 'es' 
+    description: lang === 'es'
       ? 'La primera plataforma de builders en Centroamérica. Únete a nosotros el 31 de Enero.'
       : 'Central America\'s first builder platform. Join us on January 31st.',
     openGraph: {
@@ -46,6 +47,15 @@ export default async function RootLayout({
   const { lang } = await params;
   return (
     <html lang={lang}>
+      <head>
+        {process.env.NODE_ENV === "development" && (
+          <Script
+            src="//unpkg.com/react-grab/dist/index.global.js"
+            crossOrigin="anonymous"
+            strategy="beforeInteractive"
+          />
+        )}
+      </head>
       <body className={`${rajdhani.variable} ${jetbrainsMono.variable} antialiased font-sans`}>
         <Providers>
           {children}

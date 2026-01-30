@@ -101,14 +101,14 @@ export function Criteria({ dict }: { dict: Dictionary }) {
               
               {isCalibrated && (
                 <div className="absolute top-2 right-2">
-                  <span className="text-[10px] font-mono text-accent bg-accent/10 px-2 py-0.5 rounded border border-accent/20">CALIBRATED</span>
+                  <span className="text-[10px] font-mono text-accent bg-accent/10 px-2 py-0.5 border border-accent/20">CALIBRATED</span>
                 </div>
               )}
 
               <div className="flex flex-col h-full">
                 <div className="flex items-center justify-between mb-6">
                   <div className={cn(
-                    "p-3 rounded-lg transition-colors duration-300",
+                    "p-3 transition-colors duration-300",
                     isCalibrated ? "bg-accent text-white" : "bg-accent/10 text-accent group-hover:bg-accent group-hover:text-white"
                   )}>
                     {stat.icon}
@@ -141,7 +141,7 @@ export function Criteria({ dict }: { dict: Dictionary }) {
                     <span>Power Level</span>
                     <span>{stat.value}%</span>
                   </div>
-                  <div className="h-2 w-full bg-black/50 rounded-full overflow-hidden border border-white/5">
+                  <div className="h-2 w-full bg-black/50 overflow-hidden border border-white/5">
                     <div 
                       className={cn(
                         "h-full bg-gradient-to-r from-accent to-orange-400 transition-all duration-1000 ease-out",

@@ -8,8 +8,6 @@ import { useXpFloater } from "@/components/xp/xp-floater"
 import { cn } from "@/lib/utils"
 
 export function Organizers({ dict }: { dict: Dictionary }) {
-  // dict will be used when organizers data is added to i18n dictionary
-  void dict
   const { completeAction } = useXp()
   const { spawnFloater } = useXpFloater()
   
@@ -20,7 +18,7 @@ export function Organizers({ dict }: { dict: Dictionary }) {
       role: "Lead Organizer",
       tags: ["Software Engineer", "Cursor Ambassador"],
       level: 99,
-      image: "https://github.com/wmoralesdev.png",
+      image: "/org/walter.jpeg",
       x: "https://x.com/wmoralesdev"
     },
     {
@@ -54,7 +52,7 @@ export function Organizers({ dict }: { dict: Dictionary }) {
     <section id="organizers" className="container mx-auto px-4 py-24">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold tracking-tight uppercase mb-4">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter mb-4">
             <span className="text-accent">{dict.organizers.title_part1}</span> {dict.organizers.title_part2}
           </h2>
           <p className="text-foreground/60 font-mono">
@@ -72,7 +70,7 @@ export function Organizers({ dict }: { dict: Dictionary }) {
             className="group p-6 flex flex-col items-center text-center hover:border-accent/50 transition-colors cursor-pointer overflow-hidden"
           >
             <div className="relative mb-8 w-full flex justify-center">
-              <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-white/10 group-hover:border-accent transition-colors relative z-10">
+              <div className="w-32 h-32 overflow-hidden border-2 border-white/10 group-hover:border-accent transition-colors relative z-10">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img 
                   src={org.image} 
@@ -83,7 +81,7 @@ export function Organizers({ dict }: { dict: Dictionary }) {
                   )} 
                 />
               </div>
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 bg-black/80 px-3 py-0.5 rounded-full border border-accent/30 text-[10px] font-mono text-accent z-20">
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 bg-black/80 px-3 py-0.5 border border-accent/30 text-[10px] font-mono text-accent z-20">
                 LVL.{org.level}
               </div>
             </div>
@@ -103,7 +101,7 @@ export function Organizers({ dict }: { dict: Dictionary }) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-accent/50 transition-all group/x w-full justify-center"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 hover:bg-white/10 hover:border-accent/50 transition-all group/x w-full justify-center"
             >
               <svg 
                 viewBox="0 0 24 24" 

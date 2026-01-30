@@ -9,22 +9,12 @@ export function Footer({ dict }: { dict: Dictionary }) {
   return (
     <footer className="border-t border-white/5 bg-black py-16">
       <div className="container mx-auto px-4">
-        {/* Builders limit banner */}
-        <div className="text-center mb-12 py-6 border-y border-accent/20 bg-accent/5">
-          <p className="text-2xl font-bold text-accent uppercase tracking-wider">
-            {dict.footer.builders_limit}
-          </p>
-          <p className="text-sm font-mono text-foreground/40 mt-2">
-            {dict.footer.hashtag}
-          </p>
-        </div>
-
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           
           <div className="md:col-span-2">
-            <h3 className="font-bold text-xl mb-4">CURSOR HACKATHON</h3>
+            <h3 className="font-bold text-xl mb-4">{dict.footer.title}</h3>
             <p className="text-foreground/60 max-w-sm mb-6">
-              The first builder platform in Central America. Join us to build, ship, and deploy the future.
+              {dict.footer.description}
             </p>
             <div className="flex gap-4">
               <a href="https://chat.whatsapp.com/Ga8mG1fqDM9C0ryxAw1eIj" target="_blank" rel="noreferrer" className="text-foreground/60 hover:text-green-500 transition-colors" aria-label="WhatsApp">
@@ -43,11 +33,11 @@ export function Footer({ dict }: { dict: Dictionary }) {
           </div>
           
           <div>
-            <h4 className="font-bold mb-4">Event</h4>
+            <h4 className="font-bold mb-4">{dict.footer.event_section}</h4>
             <ul className="space-y-2 text-sm text-foreground/60">
-              <li><a href="#agenda" className="hover:text-accent">Agenda</a></li>
-              <li><a href="#sponsors" className="hover:text-accent">Sponsors</a></li>
-              <li><a href="#register" className="hover:text-accent">Register</a></li>
+              <li><a href="#agenda" className="hover:text-accent">{dict.footer.agenda}</a></li>
+              <li><a href="#sponsors" className="hover:text-accent">{dict.footer.sponsors}</a></li>
+              <li><a href="#register" className="hover:text-accent">{dict.footer.register}</a></li>
               <li>
                 <a 
                   href="https://hack.cursor-sv.com" 
@@ -67,12 +57,12 @@ export function Footer({ dict }: { dict: Dictionary }) {
           </div>
 
           <div>
-             <h4 className="font-bold mb-4">System</h4>
+             <h4 className="font-bold mb-4">{dict.footer.system_section}</h4>
              <ul className="space-y-2 text-sm text-foreground/60">
                <li>
                  <button type="button" onClick={resetProgress} className="hover:text-red-500 flex items-center gap-2">
                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><title>Reset</title><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-                   Reset Simulation
+                   {dict.footer.reset_simulation}
                  </button>
                </li>
                <li className="font-mono text-xs opacity-50">v1.0.0-beta</li>

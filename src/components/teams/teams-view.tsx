@@ -101,11 +101,11 @@ export function TeamsView({ teams, loading, error, dict }: TeamsViewProps) {
       <section className="container mx-auto px-4 py-12">
         <div className="max-w-7xl mx-auto text-center">
           <div className="animate-pulse">
-            <div className="h-12 w-48 bg-white/10 rounded mx-auto mb-8" />
-            <div className="h-10 w-full max-w-md bg-white/10 rounded mx-auto mb-8" />
+            <div className="h-12 w-48 bg-white/10 mx-auto mb-8" />
+            <div className="h-10 w-full max-w-md bg-white/10 mx-auto mb-8" />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="h-64 bg-white/5 rounded" />
+                <div key={i} className="h-64 bg-white/5" />
               ))}
             </div>
           </div>
@@ -155,7 +155,7 @@ export function TeamsView({ teams, loading, error, dict }: TeamsViewProps) {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t.search_placeholder}
-              className="w-full h-12 px-4 bg-black/40 border border-white/20 rounded font-mono text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors"
+              className="w-full h-12 px-4 bg-black/40 border border-white/20 font-mono text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors"
             />
             <div className="absolute right-3 top-1/2 -translate-y-1/2 text-foreground/40">
               <svg
@@ -201,11 +201,11 @@ export function TeamsView({ teams, loading, error, dict }: TeamsViewProps) {
               >
                 {/* Subtle green overlay for completed teams */}
                 {isCompleted && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-green-500/8 via-green-500/4 to-green-500/2 pointer-events-none z-0 rounded-sm" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-green-500/8 via-green-500/4 to-green-500/2 pointer-events-none z-0" />
                 )}
                 {/* Subtle yellow overlay for teams with missing Luma */}
                 {hasMissingLuma && !isCompleted && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/8 via-yellow-500/4 to-yellow-500/2 pointer-events-none z-0 rounded-sm" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/8 via-yellow-500/4 to-yellow-500/2 pointer-events-none z-0" />
                 )}
                 <div className="relative z-10">
                 {/* Team Header */}
