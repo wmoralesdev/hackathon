@@ -2,7 +2,7 @@ import { Rajdhani, JetBrains_Mono } from "next/font/google";
 import { Providers } from "@/components/providers";
 import "../globals.css";
 import Script from 'next/script';
-import { Analytics } from '@vercel/analytics/react';
+import { Analytics } from '@vercel/analytics/next';
 import { generateLandingMetadata } from "@/lib/metadata";
 import type { Language } from "@/lib/metadata";
 
