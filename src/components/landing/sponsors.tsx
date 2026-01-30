@@ -5,6 +5,7 @@ import { Card } from "@/ui/card"
 import { Badge } from "@/ui/badge"
 import { useXp } from "@/components/xp/xp-provider"
 import { useXpFloater } from "@/components/xp/xp-floater"
+import { SectionTitle } from "./section-title"
 
 const sponsorUrls: Record<string, string> = {
   cursor: "https://cursor.com",
@@ -49,9 +50,9 @@ export function Sponsors({ dict }: { dict: Dictionary }) {
     <section id="sponsors" className="container mx-auto px-4 py-24">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter mb-4">
+          <SectionTitle href="#sponsors">
             <span className="text-accent">{dict.sponsors.title_part1}</span> {dict.sponsors.title_part2}
-          </h2>
+          </SectionTitle>
         </div>
         <h3 className="mb-6 text-sm font-mono text-accent uppercase tracking-wider text-center">{dict.sponsors.gold}</h3>
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">

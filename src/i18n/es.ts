@@ -113,27 +113,27 @@ export const es = {
     preflight_complete: "Pre-vuelo completo",
     items: [
       {
-        title: "Node.js y Entorno Web",
+        title: "Node.js y entorno web",
         description: "Instala Node.js (versión LTS recomendada) y configura tu entorno de desarrollo. Asegúrate de que npm/pnpm/yarn funcione correctamente. Prueba con un proyecto simple para verificar que todo esté configurado correctamente.",
       },
       {
-        title: "Configuración de Desarrollo Móvil (si aplica)",
+        title: "Configuración de desarrollo móvil (si aplica)",
         description: "Si planeas crear aplicaciones móviles, instala Android Studio (para emulador Android) o Xcode (para simulador iOS en macOS). Asegúrate de que los emuladores estén probados y funcionando antes del evento.",
       },
       {
-        title: "Cursor IDE y Cuenta",
-        description: "Descarga e instala Cursor IDE desde cursor.sh. Crea tu cuenta de Cursor y familiarízate con la interfaz. Esta será tu herramienta principal de desarrollo durante la hackatón.",
+        title: "Cursor IDE y cuenta",
+        description: "Descarga e instala Cursor IDE desde cursor.com. Crea tu cuenta de Cursor y familiarízate con la interfaz. Esta será tu herramienta principal de desarrollo durante la hackatón.",
       },
       {
         title: "Cuenta de GitHub",
         description: "Asegúrate de tener una cuenta de GitHub configurada. Verifica que tus claves SSH o tokens de acceso personal estén configurados si planeas subir código. Considera crear una plantilla de repositorio con anticipación.",
       },
       {
-        title: "Cuenta de Proveedor de Hosting",
+        title: "Cuenta de proveedor de hosting",
         description: "Crea una cuenta en una plataforma de hosting como Vercel, Netlify o Railway. Conéctala a tu cuenta de GitHub para despliegues sin problemas. Prueba un despliegue rápido para asegurarte de que todo funcione.",
       },
       {
-        title: "Asiste a las Sesiones de Calentamiento",
+        title: "Asiste a las sesiones de calentamiento",
         description: "Únete a las sesiones de calentamiento del 27 al 30 de enero para aprender sobre herramientas, obtener consejos de expertos y prepararte para la hackatón.",
       },
     ],

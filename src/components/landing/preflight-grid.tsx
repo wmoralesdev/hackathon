@@ -6,6 +6,7 @@ import { useXp } from "@/components/xp/xp-provider"
 import { useXpFloater } from "@/components/xp/xp-floater"
 import { cn } from "@/lib/utils"
 import { useState } from "react"
+import { SectionTitle } from "./section-title"
 
 export function PreflightGrid({ dict }: { dict: Dictionary }) {
   const { completeAction, actions, unlockBadge } = useXp()
@@ -53,15 +54,17 @@ export function PreflightGrid({ dict }: { dict: Dictionary }) {
   }
 
   return (
-    <section id="prep" className="container mx-auto px-4 py-24 relative overflow-hidden">
+    <section id="preflight-checklist" className="container mx-auto px-4 py-24 relative overflow-hidden">
       {/* Background Decoration */}
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-[radial-gradient(circle_at_center,rgba(245,78,0,0.05)_0%,transparent_60%)] -z-10" />
 
       {/* Section Header */}
       <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter mb-6">
-          <span className="text-accent">{dict.prep.section_title_part1}</span> {dict.prep.section_title_part2}
-        </h2>
+        <div className="mb-6">
+          <SectionTitle href="#preflight-checklist">
+            <span className="text-accent">{dict.prep.section_title_part1}</span> {dict.prep.section_title_part2}
+          </SectionTitle>
+        </div>
         <p className="text-foreground/60 font-mono text-base md:text-lg">
           &gt; {dict.prep.title}
         </p>

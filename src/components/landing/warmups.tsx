@@ -7,6 +7,7 @@ import { useXp } from "@/components/xp/xp-provider"
 import { useXpFloater } from "@/components/xp/xp-floater"
 import { cn } from "@/lib/utils"
 import { MessageCircleQuestion, Brain, Zap, Rocket, Check, Clock } from "lucide-react"
+import { SectionTitle } from "./section-title"
 
 export function Warmups({ dict }: { dict: Dictionary }) {
   const { completeAction, actions } = useXp()
@@ -33,7 +34,7 @@ export function Warmups({ dict }: { dict: Dictionary }) {
   }
 
   return (
-    <section id="warmups" className="container mx-auto px-4 py-24 relative overflow-hidden">
+    <section id="warm-up-sessions" className="container mx-auto px-4 py-24 relative overflow-hidden">
       {/* Background accent */}
       <div className="absolute left-0 top-0 w-1/3 h-full border-r border-white/5 bg-linear-to-r from-accent/5 to-transparent pointer-events-none -z-10 hidden lg:block" />
       
@@ -42,9 +43,9 @@ export function Warmups({ dict }: { dict: Dictionary }) {
 
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16 relative z-10">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter mb-4">
+          <SectionTitle href="#warm-up-sessions" className="mb-4">
             <span className="text-accent">{dict.warmups.title_part1}</span> {dict.warmups.title_part2}
-          </h2>
+          </SectionTitle>
           <div className="inline-flex items-center gap-2 px-4 py-1 border border-white/10 bg-white/5 backdrop-blur-sm">
             <Clock className="w-4 h-4 text-accent" />
             <p className="text-lg text-foreground/80 font-mono">
@@ -123,10 +124,6 @@ export function Warmups({ dict }: { dict: Dictionary }) {
           )
         })}
         </div>
-
-        <p className="text-center text-xs font-mono text-foreground/30 mt-12 animate-pulse">
-          _ {dict.warmups.coming_soon} _
-        </p>
       </div>
     </section>
   )

@@ -6,6 +6,7 @@ import { useXp } from "@/components/xp/xp-provider"
 import { useXpFloater } from "@/components/xp/xp-floater"
 import { cn } from "@/lib/utils"
 import { Rocket, AlertCircle, Check, Lightbulb, Target } from "lucide-react"
+import { SectionTitle } from "./section-title"
 
 export function HackathonTheme({ dict }: { dict: Dictionary }) {
   const { completeAction, actions } = useXp()
@@ -21,15 +22,17 @@ export function HackathonTheme({ dict }: { dict: Dictionary }) {
   const isScanned = actions.includes("theme_section")
 
   return (
-    <section id="theme" className="container mx-auto px-4 py-16 relative overflow-hidden">
+    <section id="hackathon-theme" className="container mx-auto px-4 py-16 relative overflow-hidden">
       {/* Background Decoration */}
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-[radial-gradient(circle_at_center,rgba(245,78,0,0.05)_0%,transparent_60%)] -z-10" />
 
       {/* Section Header */}
       <div className="text-center mb-10">
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter mb-4">
-          <span className="text-accent">{dict.theme.title_part1}</span> {dict.theme.title_part2}
-        </h2>
+        <div className="mb-4">
+          <SectionTitle href="#hackathon-theme">
+            <span className="text-accent">{dict.theme.title_part1}</span> {dict.theme.title_part2}
+          </SectionTitle>
+        </div>
         <p className="text-foreground/60 font-mono text-sm">
           &gt; {dict.theme.subtitle.toUpperCase()}
         </p>

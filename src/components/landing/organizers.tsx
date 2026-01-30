@@ -6,6 +6,7 @@ import { Badge } from "@/ui/badge"
 import { useXp } from "@/components/xp/xp-provider"
 import { useXpFloater } from "@/components/xp/xp-floater"
 import { cn } from "@/lib/utils"
+import { SectionTitle } from "./section-title"
 
 export function Organizers({ dict }: { dict: Dictionary }) {
   const { completeAction } = useXp()
@@ -49,12 +50,14 @@ export function Organizers({ dict }: { dict: Dictionary }) {
   }
 
   return (
-    <section id="organizers" className="container mx-auto px-4 py-24">
+    <section id="system-architects" className="container mx-auto px-4 py-24">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter mb-4">
-            <span className="text-accent">{dict.organizers.title_part1}</span> {dict.organizers.title_part2}
-          </h2>
+          <div className="mb-4">
+            <SectionTitle href="#system-architects">
+              <span className="text-accent">{dict.organizers.title_part1}</span> {dict.organizers.title_part2}
+            </SectionTitle>
+          </div>
           <p className="text-foreground/60 font-mono">
             &gt; {dict.organizers.subtitle}
           </p>

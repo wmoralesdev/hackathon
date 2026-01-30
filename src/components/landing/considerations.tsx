@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import type { Dictionary } from "@/i18n/utils"
 import { Card } from "@/ui/card"
 import { useXp } from "@/components/xp/xp-provider"
@@ -59,7 +60,9 @@ export function Considerations({ dict }: { dict: Dictionary }) {
                 <path d="M12 17h.01" />
               </svg>
             </div>
-            <h2 className="text-sm font-mono text-accent uppercase tracking-wider">{dict.considerations.title}</h2>
+            <Link href="#considerations" className="block">
+              <h2 className="text-sm font-mono text-accent uppercase tracking-wider hover:text-accent/80 transition-colors cursor-pointer">{dict.considerations.title}</h2>
+            </Link>
           </div>
           {allAcknowledged && (
             <span className="text-[10px] font-mono text-orange-500 bg-orange-500/10 px-2 py-0.5 border border-orange-500/20">

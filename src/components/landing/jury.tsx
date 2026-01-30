@@ -9,6 +9,7 @@ import { useXpFloater } from "@/components/xp/xp-floater"
 import { cn } from "@/lib/utils"
 import { AnimatePresence, motion } from "framer-motion"
 import { ChevronLeft, ChevronRight, X } from "lucide-react"
+import { SectionTitle } from "./section-title"
 
 interface JuryMember {
   id: string
@@ -75,6 +76,7 @@ export function Jury({ dict }: { dict: Dictionary }) {
   const { completeAction } = useXp()
   const { spawnFloater } = useXpFloater()
   const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const sectionRef = useRef<HTMLElement>(null)
   
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [isPaused, setIsPaused] = useState(false)
@@ -111,6 +113,30 @@ export function Jury({ dict }: { dict: Dictionary }) {
     })
   }
 
+  // Hide XP widget when jury section is visible
+  useEffect(() => {
+    if (!sectionRef.current) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0]
+        if (entry?.isIntersecting) {
+          document.body.classList.add('jury-section-active')
+        } else {
+          document.body.classList.remove('jury-section-active')
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    observer.observe(sectionRef.current)
+
+    return () => {
+      observer.disconnect()
+      document.body.classList.remove('jury-section-active')
+    }
+  }, [])
+
   // JS-driven auto-scroll for sync with scrollbar
   useEffect(() => {
     // Only run on desktop
@@ -145,12 +171,14 @@ export function Jury({ dict }: { dict: Dictionary }) {
   }, [isPaused])
 
   return (
-    <section id="jury" className="container mx-auto px-4 py-24 overflow-hidden">
+    <section ref={sectionRef} id="evaluation-jury" className="container mx-auto px-4 py-24 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter mb-4">
-            <span className="text-accent">{dict.jury.title_part1}</span> {dict.jury.title_part2}
-          </h2>
+          <div className="mb-4">
+            <SectionTitle href="#evaluation-jury">
+              <span className="text-accent">{dict.jury.title_part1}</span> {dict.jury.title_part2}
+            </SectionTitle>
+          </div>
           <p className="text-foreground/60 font-mono">
             &gt; {dict.jury.subtitle}
           </p>
@@ -311,7 +339,7 @@ export function Jury({ dict }: { dict: Dictionary }) {
           {/* Marquee Container */}
           <div 
             ref={scrollContainerRef}
-            className="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory pb-4 md:pb-6 custom-scrollbar px-[50vw] md:px-16"
+            className="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory pb-4 md:pb-6 custom-scrollbar px-4 md:px-16"
           >
             {/* We duplicate the array for infinite loop effect on desktop */}
             <div className="flex gap-4 md:gap-6 min-w-full">

@@ -35,7 +35,7 @@ export function Footer({ dict }: { dict: Dictionary }) {
           <div>
             <h4 className="font-bold mb-4">{dict.footer.event_section}</h4>
             <ul className="space-y-2 text-sm text-foreground/60">
-              <li><a href="#agenda" className="hover:text-accent">{dict.footer.agenda}</a></li>
+              <li><a href="#mission-timeline" className="hover:text-accent">{dict.footer.agenda}</a></li>
               <li><a href="#sponsors" className="hover:text-accent">{dict.footer.sponsors}</a></li>
               <li><a href="#register" className="hover:text-accent">{dict.footer.register}</a></li>
               <li>

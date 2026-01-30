@@ -6,6 +6,7 @@ import { useXp } from "@/components/xp/xp-provider"
 import { useXpFloater } from "@/components/xp/xp-floater"
 import { cn } from "@/lib/utils"
 import { Check, Clock, CalendarDays } from "lucide-react"
+import { SectionTitle } from "./section-title"
 
 export function Agenda({ dict }: { dict: Dictionary }) {
   const { completeAction, actions, unlockBadge } = useXp()
@@ -41,15 +42,17 @@ export function Agenda({ dict }: { dict: Dictionary }) {
   }, [completeAction, spawnFloater, generateHash])
 
   return (
-    <section id="agenda" className="container mx-auto px-4 py-24 relative overflow-hidden">
+    <section id="mission-timeline" className="container mx-auto px-4 py-24 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-px bg-linear-to-r from-transparent via-white/10 to-transparent -z-10 hidden md:block" />
       
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-20 relative z-10">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter mb-4">
-            <span className="text-accent">{dict.agenda.timeline_title_part1}</span> {dict.agenda.timeline_title_part2}
-          </h2>
+          <div className="mb-4">
+            <SectionTitle href="#mission-timeline">
+              <span className="text-accent">{dict.agenda.timeline_title_part1}</span> {dict.agenda.timeline_title_part2}
+            </SectionTitle>
+          </div>
           
           <div className="inline-flex items-center gap-2 px-4 py-1 border border-white/10 bg-white/5 backdrop-blur-sm mb-6">
              <CalendarDays className="w-4 h-4 text-accent" />

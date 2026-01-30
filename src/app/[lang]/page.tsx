@@ -11,6 +11,18 @@ import { Sponsors } from "@/components/landing/sponsors"
 import { Considerations } from "@/components/landing/considerations"
 import { Organizers } from "@/components/landing/organizers"
 import { Footer } from "@/components/landing/footer"
+import { generateLandingMetadata, generateEventStructuredData } from "@/lib/metadata"
+import type { Language } from "@/lib/metadata"
+import { StructuredData } from "@/components/structured-data"
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: "en" | "es" }>;
+}) {
+  const { lang } = await params;
+  return generateLandingMetadata({ lang: lang as Language });
+}
 
 export default async function Page({
   params,
@@ -19,23 +31,27 @@ export default async function Page({
 }) {
   const { lang } = await params;
   const dict = await getDictionary(lang);
+  const structuredData = generateEventStructuredData(lang);
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans selection:bg-accent/30">
-      <Nav dict={dict} />
-      <main className="flex flex-col">
-        <Hero dict={dict} />
-        <GridSection dict={dict} />
-        <Sponsors dict={dict} />
-        <HackathonTheme dict={dict} />
-        <Jury dict={dict} />
-        <Agenda dict={dict} />
-        <PreflightGrid dict={dict} />
-        <Organizers dict={dict} />
-        <Warmups dict={dict} />
-        <Considerations dict={dict} />
-      </main>
-      <Footer dict={dict} />
-    </div>
+    <>
+      <StructuredData data={structuredData} />
+      <div className="min-h-screen bg-background text-foreground font-sans selection:bg-accent/30">
+        <Nav dict={dict} />
+        <main className="flex flex-col">
+          <Hero dict={dict} />
+          <GridSection dict={dict} />
+          <Sponsors dict={dict} />
+          <HackathonTheme dict={dict} />
+          <Jury dict={dict} />
+          <Agenda dict={dict} />
+          <PreflightGrid dict={dict} />
+          <Organizers dict={dict} />
+          <Warmups dict={dict} />
+          <Considerations dict={dict} />
+        </main>
+        <Footer dict={dict} />
+      </div>
+    </>
   );
 }

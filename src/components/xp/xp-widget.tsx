@@ -19,7 +19,7 @@ export function XpWidget() {
 
   return (
     <>
-      <div className="fixed bottom-6 right-6 z-50 animate-in fade-in slide-in-from-bottom-8 duration-1000 flex items-end gap-2">
+      <div className="xp-widget-container fixed bottom-6 right-6 z-50 animate-in fade-in slide-in-from-bottom-8 duration-1000 flex items-end gap-2">
         {/* Reset Button (Floating) */}
         <div className="relative">
           {showResetConfirm && (

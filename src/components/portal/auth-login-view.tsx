@@ -4,7 +4,6 @@ import { Card } from "@/ui/card"
 import { Button } from "@/ui/button"
 import { createClient } from "@/lib/supabase/client"
 import type { Dictionary } from "@/i18n/utils"
-import { useRouter } from "next/navigation"
 
 function GitHubIcon() {
   return (

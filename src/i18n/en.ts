@@ -122,7 +122,7 @@ export const en = {
       },
       {
         title: "Cursor IDE and Account",
-        description: "Download and install Cursor IDE from cursor.sh. Create your Cursor account and familiarize yourself with the interface. This will be your primary development tool during the hackathon.",
+        description: "Download and install Cursor IDE from cursor.com. Create your Cursor account and familiarize yourself with the interface. This will be your primary development tool during the hackathon.",
       },
       {
         title: "GitHub Account",
