@@ -1,0 +1,99 @@
+import { getDictionary } from "@/i18n/utils"
+import { Nav } from "@/components/nav"
+import { Footer } from "@/components/landing/footer"
+import { PortalView } from "@/components/portal/portal-view"
+import { createClient } from "@/lib/supabase/server"
+import { prisma } from "@/lib/prisma"
+import { readFile } from "fs/promises"
+import { join } from "path"
+import { redirect } from "next/navigation"
+
+export default async function PortalPage({
+  params,
+}: {
+  params: Promise<{ lang: "en" | "es" }>;
+}) {
+  const { lang } = await params;
+  const dict = await getDictionary(lang);
+
+  // Check auth
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  if (!user) {
+    redirect(`/${lang}/portal/auth`)
+    return
+  }
+
+  // Get profile
+  const profile = await prisma.profile.findUnique({
+    where: { id: user.id },
+  })
+
+  if (!profile) {
+    redirect(`/${lang}/portal/onboarding`)
+    return
+  }
+
+  // Get deliverable if exists with submissions
+  const deliverable = await prisma.deliverable.findUnique({
+    where: { teamNumber: profile.teamNumber } as { teamNumber: number },
+    include: {
+      submissions: {
+        orderBy: { submittedAt: "desc" },
+        take: 20,
+        include: {
+          submittedBy: {
+            select: {
+              participantName: true,
+            },
+          },
+        },
+      },
+    },
+  })
+
+  const socialPosts = await prisma.socialPost.findMany({
+    where: { teamNumber: profile.teamNumber },
+    orderBy: { submittedAt: "desc" },
+    include: {
+      submittedBy: { select: { participantName: true } },
+      removedBy: { select: { participantName: true } },
+    },
+  })
+
+  // Read content.txt
+  const contentPath = join(process.cwd(), "public", "content.txt")
+  const content = await readFile(contentPath, "utf-8")
+
+  return (
+    <div className="min-h-screen bg-background text-foreground font-sans selection:bg-accent/30">
+      <Nav dict={dict} />
+      <main className="flex flex-col">
+        <PortalView
+          dict={dict}
+          content={content}
+          profile={{
+            participantName: profile.participantName,
+            teamNumber: profile.teamNumber,
+          }}
+          deliverable={deliverable ? {
+            saasUrl: deliverable.saasUrl,
+            updatedAt: deliverable.updatedAt ?? undefined,
+            submissions: deliverable.submissions.map(s => ({
+              id: s.id,
+              action: s.action,
+              value: s.value,
+              submittedAt: s.submittedAt,
+              submittedBy: s.submittedBy,
+            })),
+          } : undefined}
+          socialPosts={socialPosts}
+        />
+      </main>
+      <Footer dict={dict} />
+    </div>
+  )
+}
