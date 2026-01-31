@@ -4,7 +4,6 @@
 
 import { prisma } from "@/lib/prisma"
 import { scrapeSaasLanding, mapScrapeErrorToFetchError } from "./scrape-saas-landing"
-import { generateSummary } from "./summary"
 
 export interface IngestionOptions {
   concurrency?: number
@@ -76,34 +75,19 @@ export async function ingestTeamShowcase(
       }
     }
 
-    // Generate summary
-    const summary = await generateSummary(scrapeResult.data)
-
-    // Store successful snapshot
+    // Store successful snapshot (only URL and screenshot)
     await prisma.showcaseSnapshot.upsert({
       where: { teamNumber },
       create: {
         teamNumber,
         sourceUrl: scrapeResult.data.url,
-        title: scrapeResult.data.title || null,
-        description: scrapeResult.data.description || null,
-        ogJson: scrapeResult.data.ogJson || null,
-        markdown: scrapeResult.data.markdown || null,
-        summary: summary || null,
         screenshotUrl: scrapeResult.data.screenshotUrl || null,
-        links: scrapeResult.data.links || null,
         lastFetchedAt: new Date(),
         fetchError: null,
       },
       update: {
         sourceUrl: scrapeResult.data.url,
-        title: scrapeResult.data.title || null,
-        description: scrapeResult.data.description || null,
-        ogJson: scrapeResult.data.ogJson || null,
-        markdown: scrapeResult.data.markdown || null,
-        summary: summary || null,
         screenshotUrl: scrapeResult.data.screenshotUrl || null,
-        links: scrapeResult.data.links || null,
         lastFetchedAt: new Date(),
         fetchError: null,
       },

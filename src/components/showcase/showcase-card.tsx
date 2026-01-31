@@ -1,6 +1,6 @@
 "use client"
 
-import { Dictionary } from "@/i18n/utils"
+import type { Dictionary } from "@/i18n/utils"
 import { Card } from "@/ui/card"
 import { Badge } from "@/ui/badge"
 import Link from "next/link"
@@ -8,13 +8,7 @@ import Link from "next/link"
 export interface ShowcaseSnapshot {
   teamNumber: number
   sourceUrl: string
-  title?: string | null
-  description?: string | null
-  summary?: string | null
-  markdown?: string | null
   screenshotUrl?: string | null
-  ogJson?: Record<string, unknown> | null
-  links?: unknown
   fetchError?: string | null
 }
 
@@ -22,6 +16,19 @@ interface ShowcaseCardProps {
   snapshot: ShowcaseSnapshot | null
   teamNumber: number
   sourceUrl?: string | null
+  deliverable?: {
+    productName?: string | null
+    oneLiner?: string | null
+    targetUsers?: string | null
+    problem?: string | null
+    category?: string | null
+    stage?: string | null
+  }
+  socialPosts?: Array<{
+    id: string
+    platform: "x" | "linkedin"
+    url: string
+  }>
   dict: Dictionary
   lang: string
 }
@@ -30,34 +37,23 @@ export function ShowcaseCard({
   snapshot,
   teamNumber,
   sourceUrl,
+  deliverable,
+  socialPosts = [],
   dict,
   lang,
 }: ShowcaseCardProps) {
-  const hasError = snapshot?.fetchError !== null && snapshot?.fetchError !== undefined
-  const hasContent = snapshot && !hasError
+  // Fix boolean typing - ensure these are actual booleans, not truthy values
+  const hasError = snapshot?.fetchError != null
+  const hasContent = snapshot != null && !hasError
 
-  // Get image URL (screenshot or OG image)
-  const imageUrl =
-    snapshot?.screenshotUrl ||
-    (snapshot?.ogJson && typeof snapshot.ogJson["og:image"] === "string"
-      ? snapshot.ogJson["og:image"]
-      : null)
+  // Get image URL (screenshot only)
+  const imageUrl = snapshot?.screenshotUrl || null
 
-  // Get title
-  const title =
-    snapshot?.title ||
-    (snapshot?.ogJson && typeof snapshot.ogJson["og:title"] === "string"
-      ? snapshot.ogJson["og:title"]
-      : null) ||
-    `${dict.showcase.card.team} ${teamNumber}`
+  // Get title from deliverable, fallback to team number
+  const title = deliverable?.productName || `${dict.showcase.card.team} ${teamNumber}`
 
-  // Get description/summary
-  const description =
-    snapshot?.summary ||
-    snapshot?.description ||
-    (snapshot?.ogJson && typeof snapshot.ogJson["og:description"] === "string"
-      ? snapshot.ogJson["og:description"]
-      : null)
+  // Get description from deliverable one-liner
+  const description = deliverable?.oneLiner || null
 
   return (
     <Card level={2} className="overflow-hidden">
@@ -110,15 +106,44 @@ export function ShowcaseCard({
           )}
 
           {!hasContent && sourceUrl && (
-            <a
-              href={sourceUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-2 text-sm text-accent hover:underline"
-              onClick={(e) => e.stopPropagation()}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation()
+                e.preventDefault()
+                window.open(sourceUrl, "_blank", "noopener,noreferrer")
+              }}
+              className="mt-2 text-sm text-accent hover:underline text-left"
             >
               {sourceUrl}
-            </a>
+            </button>
+          )}
+
+          {socialPosts.length > 0 && (
+            <div className="mt-3 flex items-center gap-2 flex-wrap">
+              <span className="text-xs text-muted-foreground">
+                {dict.showcase.detail.social_posts}:
+              </span>
+              {socialPosts.slice(0, 2).map((post) => (
+                <button
+                  key={post.id}
+                  type="button"
+                  className="inline-flex items-center border border-white/20 bg-white/5 px-2 py-0.5 text-[10px] font-mono font-bold uppercase tracking-widest text-foreground transition-colors hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    e.preventDefault()
+                    window.open(post.url, "_blank", "noopener,noreferrer")
+                  }}
+                >
+                  {post.platform === "x" ? "X" : "LI"}
+                </button>
+              ))}
+              {socialPosts.length > 2 && (
+                <span className="text-xs text-muted-foreground">
+                  +{socialPosts.length - 2}
+                </span>
+              )}
+            </div>
           )}
 
           <div className="mt-4 text-sm text-accent">

@@ -2,6 +2,8 @@ export interface Participant {
   name: string;
   teamNumber: number;
   isLead: boolean;
+  luma?: boolean;
+  rsvp?: boolean;
   whatsapp?: string;
 }
 
@@ -14,6 +16,14 @@ export interface Team {
  * Parses the content.txt file to extract participant and team information
  */
 export function parseParticipants(content: string): Team[] {
+  const parseBoolean = (value?: string) => {
+    if (!value) return undefined
+    const normalized = value.trim().toLowerCase()
+    if (normalized === "true") return true
+    if (normalized === "false") return false
+    return undefined
+  }
+
   const lines = content.split("\n").filter((line) => line.trim());
   const teams: Team[] = [];
   let currentTeam: Team | null = null;
@@ -63,6 +73,8 @@ export function parseParticipants(content: string): Team[] {
       
       // Name is always in column 1 (index 1)
       const name = parts[1] || "";
+      const luma = parseBoolean(parts[2])
+      const rsvp = parseBoolean(parts[3])
       const whatsapp = parts.length >= 5 && parts[4] ? parts[4] : undefined;
 
       // Skip if name is empty or is a header keyword
@@ -71,7 +83,9 @@ export function parseParticipants(content: string): Team[] {
           name,
           teamNumber: currentTeam.number,
           isLead,
-          whatsapp: whatsapp && whatsapp !== "WhatsApp" && whatsapp.startsWith("+") ? whatsapp : undefined,
+          luma,
+          rsvp,
+          whatsapp: whatsapp && whatsapp !== "WhatsApp" ? whatsapp : undefined,
         });
       }
     }

@@ -4,8 +4,8 @@ import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/ui/button"
-// TEMPORARY: Commented out for refactor - using inline EN/ES buttons instead
-// import { LanguageSwitcher } from "@/components/language-switcher"
+import { UserMenu } from "@/components/portal/user-menu"
+import { AuthButton } from "@/components/portal/auth-button"
 import type { Dictionary } from "@/i18n/utils"
 
 function HamburgerIcon({ open }: { open: boolean }) {
@@ -34,13 +34,8 @@ export function Nav({ dict }: { dict: Dictionary }) {
   const segments = pathname.split("/")
   const currentLang = segments[1] || "en"
   
-  const enSegments = [...segments]
-  enSegments[1] = "en"
-  const enPath = enSegments.join("/") || "/en"
-  
-  const esSegments = [...segments]
-  esSegments[1] = "es"
-  const esPath = esSegments.join("/") || "/es"
+  const enPath = segments.map((s, i) => i === 1 ? "en" : s).join("/") || "/en"
+  const esPath = segments.map((s, i) => i === 1 ? "es" : s).join("/") || "/es"
 
   return (
     <nav className="sticky top-0 z-40 w-full border-b border-white/5 bg-background/80 backdrop-blur-md">
@@ -62,36 +57,18 @@ export function Nav({ dict }: { dict: Dictionary }) {
             {dict.nav.teams}
           </Link>
           <Link
+            href={`/${currentLang}/evento`}
+            className="text-sm font-mono text-foreground/70 hover:text-accent transition-colors"
+          >
+            {dict.nav.event}
+          </Link>
+          <Link
             href={`/${currentLang}/showcase`}
             className="text-sm font-mono text-foreground/70 hover:text-accent transition-colors"
           >
             {dict.showcase.title}
           </Link>
-          {/* TEMPORARY: Replaced LanguageSwitcher with EN/ES buttons styled like register button */}
-          {/* <LanguageSwitcher /> */}
-          <div className="flex items-center gap-2">
-            <Button 
-              asChild 
-              variant={currentLang === "en" ? "primary" : "ghost"} 
-              size="sm"
-              className="font-mono text-xs"
-            >
-              <Link href={enPath}>EN</Link>
-            </Button>
-            <Button 
-              asChild 
-              variant={currentLang === "es" ? "primary" : "ghost"} 
-              size="sm"
-              className="font-mono text-xs"
-            >
-              <Link href={esPath}>ES</Link>
-            </Button>
-          </div>
-          <Button asChild variant="primary" size="sm">
-            <Link href={`/${currentLang}/portal/auth`}>
-              {dict.nav.login}
-            </Link>
-          </Button>
+          <UserMenu dict={dict} lang={currentLang as "en" | "es"} />
         </div>
 
         {/* Mobile Menu Button */}
@@ -116,6 +93,13 @@ export function Nav({ dict }: { dict: Dictionary }) {
             onClick={() => setMobileMenuOpen(false)}
           >
             {dict.nav.teams}
+          </Link>
+          <Link
+            href={`/${currentLang}/evento`}
+            className="text-sm font-mono text-foreground/70 hover:text-accent transition-colors py-2"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            {dict.nav.event}
           </Link>
           <Link
             href={`/${currentLang}/showcase`}
@@ -151,11 +135,7 @@ export function Nav({ dict }: { dict: Dictionary }) {
                 <Link href={esPath}>ES</Link>
               </Button>
             </div>
-            <Button asChild variant="primary" size="sm" className="w-full">
-              <Link href={`/${currentLang}/portal/auth`} onClick={() => setMobileMenuOpen(false)}>
-                {dict.nav.login}
-              </Link>
-            </Button>
+            <AuthButton dict={dict} variant="nav" lang={currentLang as "en" | "es"} className="flex flex-col gap-2 w-full" />
           </div>
         </div>
       )}

@@ -27,10 +27,33 @@ model Profile {
   @@map("profiles")
 }
 
+model ParticipantDirectoryEntry {
+  id         Int      @id @default(autoincrement())
+  teamNumber Int      @map("team_number")
+  name       String   @map("participant_name") @db.Text
+  isLead     Boolean  @default(false) @map("is_lead")
+  luma       Boolean? @map("luma")
+  rsvp       Boolean? @map("rsvp")
+  whatsapp   String?  @map("whatsapp") @db.Text
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@unique([teamNumber, name])
+  @@index([teamNumber])
+  @@index([name])
+  @@map("participant_directory_entries")
+}
+
 model Deliverable {
   id             String   @id @default(uuid()) @db.Uuid
   teamNumber     Int      @unique @map("team_number")
   saasUrl        String?  @map("saas_url")
+  productName    String?  @map("product_name") @db.Text
+  oneLiner       String?  @map("one_liner") @db.Text
+  targetUsers    String?  @map("target_users") @db.Text
+  problem        String?  @db.Text
+  category       String?  @db.Text
+  stage          String?  @db.Text
   updatedAt      DateTime? @updatedAt @map("updated_at")
   
   submissions    DeliverableSubmission[]

@@ -2,8 +2,8 @@ import { getDictionary } from "@/i18n/utils"
 import { Nav } from "@/components/nav"
 import { Footer } from "@/components/landing/footer"
 import { ShowcaseDetail } from "@/components/showcase/showcase-detail"
+import type { ShowcaseSnapshot } from "@/components/showcase/showcase-card"
 import { prisma } from "@/lib/prisma"
-import { createClient } from "@/lib/supabase/server"
 import { checkAdminAuth } from "@/lib/showcase/admin-auth"
 import { notFound } from "next/navigation"
 
@@ -20,31 +20,60 @@ export default async function ShowcaseDetailPage({
     notFound();
   }
 
-  // Get deliverable for this team
+  // Get deliverable for this team (including showcase fields)
   const deliverable = await prisma.deliverable.findUnique({
     where: { teamNumber: teamNum },
     select: {
       saasUrl: true,
+      productName: true,
+      oneLiner: true,
+      targetUsers: true,
+      problem: true,
+      category: true,
+      stage: true,
     },
   })
 
-  // Get showcase snapshot if exists
-  const snapshot = await prisma.showcaseSnapshot.findUnique({
+  // Get social posts for this team (non-removed only)
+  const socialPosts = await prisma.socialPost.findMany({
+    where: {
+      teamNumber: teamNum,
+      removedAt: null,
+    },
+    select: {
+      id: true,
+      teamNumber: true,
+      url: true,
+      platform: true,
+      submittedAt: true,
+      oembedJson: true,
+      ogJson: true,
+      fetchError: true,
+    },
+    orderBy: { submittedAt: "desc" },
+  })
+
+  // Get showcase snapshot if exists (only screenshot URL)
+  const snapshotRaw = await prisma.showcaseSnapshot.findUnique({
     where: { teamNumber: teamNum },
     select: {
       teamNumber: true,
       sourceUrl: true,
-      title: true,
-      description: true,
-      summary: true,
-      markdown: true,
       screenshotUrl: true,
-      ogJson: true,
-      links: true,
       fetchError: true,
       lastFetchedAt: true,
     },
   })
+
+  // Convert Prisma JsonValue to ShowcaseSnapshot type
+  const snapshot: ShowcaseSnapshot | null = snapshotRaw
+    ? {
+        teamNumber: snapshotRaw.teamNumber,
+        sourceUrl: snapshotRaw.sourceUrl,
+        screenshotUrl: snapshotRaw.screenshotUrl,
+        fetchError: snapshotRaw.fetchError,
+      }
+    : null
 
   // Check if user is admin (for retry button)
   const adminAuth = await checkAdminAuth()
@@ -58,7 +87,25 @@ export default async function ShowcaseDetailPage({
           snapshot={snapshot}
           teamNumber={teamNum}
           sourceUrl={deliverable?.saasUrl || null}
-          lastFetchedAt={snapshot?.lastFetchedAt || null}
+          deliverable={deliverable ? {
+            productName: deliverable.productName,
+            oneLiner: deliverable.oneLiner,
+            targetUsers: deliverable.targetUsers,
+            problem: deliverable.problem,
+            category: deliverable.category,
+            stage: deliverable.stage,
+          } : undefined}
+          socialPosts={socialPosts.map((post) => ({
+            id: post.id,
+            teamNumber: post.teamNumber,
+            url: post.url,
+            platform: post.platform,
+            submittedAt: post.submittedAt,
+            oembedJson: post.oembedJson,
+            ogJson: post.ogJson,
+            fetchError: post.fetchError,
+          }))}
+          lastFetchedAt={snapshotRaw?.lastFetchedAt || null}
           dict={dict}
           lang={lang}
           isAdmin={isAdmin}

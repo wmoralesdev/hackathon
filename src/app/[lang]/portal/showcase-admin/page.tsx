@@ -63,7 +63,6 @@ export default async function ShowcaseAdminPage({
     select: {
       teamNumber: true,
       sourceUrl: true,
-      title: true,
       fetchError: true,
       lastFetchedAt: true,
     },

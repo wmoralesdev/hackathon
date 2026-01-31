@@ -1,9 +1,7 @@
-"use client"
-
-import * as React from "react"
 import { TeamsView } from "@/components/teams/teams-view"
 import { Nav } from "@/components/nav"
-import { es } from "@/i18n/es"
+import { getDictionary } from "@/i18n/utils"
+import { prisma } from "@/lib/prisma"
 
 interface TeamMember {
   id: string
@@ -20,116 +18,63 @@ interface Team {
   members: TeamMember[]
 }
 
-function parseTeamsData(content: string): Team[] {
-  const lines = content.split("\n")
-  const teams: Team[] = []
-  let currentTeam: Team | null = null
-  let memberIndex = 0
-  let teamIndex = 0
+async function getTeamsFromDatabase(): Promise<Team[]> {
+  const entries = await prisma.participantDirectoryEntry.findMany({
+    orderBy: [
+      { teamNumber: "asc" },
+      { isLead: "desc" },
+      { name: "asc" },
+    ],
+  })
 
-  for (const line of lines) {
-    const trimmed = line.trim()
-    
-    // Skip empty lines
-    if (!trimmed) {
-      if (currentTeam && currentTeam.members.length > 0) {
-        teams.push(currentTeam)
-        currentTeam = null
-      }
-      continue
-    }
+  const teamsMap = new Map<number, Team>()
 
-    // Check if it's a team header (starts with "Team")
-    if (trimmed.startsWith("Team")) {
-      if (currentTeam && currentTeam.members.length > 0) {
-        teams.push(currentTeam)
-      }
-      const parts = trimmed.split("\t")
-      teamIndex++
-      currentTeam = {
-        id: `team-${teamIndex}`,
-        displayName: parts[0],
+  for (const entry of entries) {
+    let team = teamsMap.get(entry.teamNumber)
+    if (!team) {
+      const teamNumberStr = String(entry.teamNumber).padStart(2, "0")
+      team = {
+        id: `team-${entry.teamNumber}`,
+        displayName: `Team ${teamNumberStr}`,
         members: [],
       }
-      memberIndex = 0
-      continue
+      teamsMap.set(entry.teamNumber, team)
     }
-
-    // It's a member row
-    if (currentTeam) {
-      const parts = line.split("\t")
-      
-      // Format: [Role/Empty] | Name | Luma | RSVP | WhatsApp
-      // Column 0: Role (LEAD or empty string)
-      // Column 1: Name
-      // Column 2: Luma (TRUE/FALSE)
-      // Column 3: RSVP (TRUE/FALSE)
-      // Column 4: WhatsApp
-      const roleCol = parts[0]?.trim() || ""
-      const name = parts[1]?.trim() || ""
-      const lumaValue = parts[2]?.trim() || "FALSE"
-      const rsvpValue = parts[3]?.trim() || "FALSE"
-      const whatsapp = parts[4]?.trim() || ""
-
-      // Skip rows with no name
-      if (!name) continue
-
-      // Determine if this is a LEAD
-      const role = roleCol.toUpperCase() === "LEAD" ? "LEAD" : ""
-
-      currentTeam.members.push({
-        id: `${currentTeam.id}-${memberIndex}`,
-        role,
-        name,
-        luma: lumaValue.toUpperCase() === "TRUE",
-        rsvp: rsvpValue.toUpperCase() === "TRUE",
-        whatsapp,
-      })
-      memberIndex++
-    }
+    team.members.push({
+      id: `${team.id}-${entry.id}`,
+      role: entry.isLead ? "LEAD" : "",
+      name: entry.name,
+      luma: entry.luma ?? false,
+      rsvp: entry.rsvp ?? false,
+      whatsapp: entry.whatsapp ?? "",
+    })
   }
 
-  // Don't forget the last team
-  if (currentTeam && currentTeam.members.length > 0) {
-    teams.push(currentTeam)
-  }
-
-  return teams
+  return Array.from(teamsMap.values())
 }
 
-export default function EquiposPage() {
-  const [teams, setTeams] = React.useState<Team[]>([])
-  const [loading, setLoading] = React.useState(true)
-  const [error, setError] = React.useState<string | null>(null)
+export default async function EquiposPage({
+  params,
+}: {
+  params: Promise<{ lang: "en" | "es" }>;
+}) {
+  const { lang } = await params;
+  const dict = await getDictionary(lang);
 
-  React.useEffect(() => {
-    async function fetchTeams() {
-      try {
-        const response = await fetch("/content.txt")
-        if (!response.ok) {
-          throw new Error("Failed to load teams data")
-        }
-        const content = await response.text()
-        const parsedTeams = parseTeamsData(content)
-        setTeams(parsedTeams)
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Unknown error")
-      } finally {
-        setLoading(false)
-      }
-    }
+  let teams: Team[] = []
+  let error: string | null = null
 
-    fetchTeams()
-  }, [])
-
-  // Use Spanish dictionary directly since page is Spanish-only
-  const dict = es
+  try {
+    teams = await getTeamsFromDatabase()
+  } catch (err) {
+    error = err instanceof Error ? err.message : "Unknown error"
+  }
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans selection:bg-accent/30">
       <Nav dict={dict} />
       <main className="flex flex-col">
-        <TeamsView teams={teams} loading={loading} error={error} dict={dict} />
+        <TeamsView teams={teams} loading={false} error={error} dict={dict} />
       </main>
     </div>
   )

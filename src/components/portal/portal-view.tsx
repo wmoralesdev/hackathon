@@ -9,6 +9,7 @@ import { TipsSection } from "./tips-section"
 import { MentorsSection } from "./mentors-section"
 import { FAQSection } from "./faq-section"
 import { AuthButton } from "./auth-button"
+import { PortalHeader } from "./portal-header"
 import type { Dictionary } from "@/i18n/utils"
 
 interface PortalViewProps {
@@ -20,6 +21,12 @@ interface PortalViewProps {
   }
   deliverable?: {
     saasUrl?: string | null
+    productName?: string | null
+    oneLiner?: string | null
+    targetUsers?: string | null
+    problem?: string | null
+    category?: string | null
+    stage?: string | null
     updatedAt?: Date | string
     submissions?: Array<{
       id: string
@@ -57,64 +64,64 @@ export function PortalView({
   socialPosts = [],
 }: PortalViewProps) {
   return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="max-w-7xl mx-auto space-y-8">
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-4xl font-black uppercase tracking-tighter mb-2">
-              {dict.portal?.title || "Participant Portal"}
-            </h1>
-            <p className="text-foreground/60 font-mono text-sm">
-              {dict.portal?.welcome?.replace("{name}", profile.participantName) ||
-                `Welcome, ${profile.participantName}`}
-            </p>
-          </div>
+    <div className="container mx-auto px-4 py-8 md:py-12">
+      <div className="max-w-7xl mx-auto">
+        <PortalHeader
+          title={dict.portal?.title || "Participant Portal"}
+          description={
+            dict.portal?.welcome?.replace("{name}", profile.participantName) ||
+            `Welcome, ${profile.participantName}`
+          }
+          badge={`TEAM ${profile.teamNumber}`}
+        >
           <AuthButton dict={dict} />
+        </PortalHeader>
+
+        <div className="grid lg:grid-cols-12 gap-8">
+          {/* Main Content Column */}
+          <div className="lg:col-span-8 space-y-8">
+            <DeliverableForm
+              teamNumber={profile.teamNumber}
+              existingDeliverable={deliverable || undefined}
+              dict={dict}
+            />
+
+            <SocialPostsSection
+              teamNumber={profile.teamNumber}
+              initialPosts={socialPosts.filter((p) => !p.removedAt)}
+              dict={dict}
+            />
+
+            {((deliverable?.submissions && deliverable.submissions.length > 0) ||
+              (socialPosts && socialPosts.length > 0)) && (
+              <SubmissionTimeline
+                deliverableSubmissions={deliverable?.submissions || []}
+                socialPosts={socialPosts}
+                dict={dict}
+              />
+            )}
+            
+            {/* Mentors moved to main column for better visibility on mobile/desktop */}
+             <MentorsSection dict={dict} />
+          </div>
+
+          {/* Sidebar Column */}
+          <div className="lg:col-span-4 space-y-6">
+            <div className="lg:sticky lg:top-24 space-y-6">
+              <CountdownTimer freezeTime={FREEZE_TIME} dict={dict} />
+              
+              <TeamCard
+                teamNumber={profile.teamNumber}
+                currentUserName={profile.participantName}
+                content={content}
+                dict={dict}
+              />
+
+              <TipsSection dict={dict} />
+              <FAQSection dict={dict} />
+            </div>
+          </div>
         </div>
-
-        {/* Top Row: Team + Countdown */}
-        <div className="grid md:grid-cols-2 gap-6">
-          <TeamCard
-            teamNumber={profile.teamNumber}
-            currentUserName={profile.participantName}
-            content={content}
-            dict={dict}
-          />
-          <CountdownTimer freezeTime={FREEZE_TIME} dict={dict} />
-        </div>
-
-        {/* Deliverables */}
-        <DeliverableForm
-          teamNumber={profile.teamNumber}
-          existingDeliverable={deliverable || undefined}
-          dict={dict}
-        />
-
-        <SocialPostsSection
-          teamNumber={profile.teamNumber}
-          initialPosts={socialPosts.filter((p) => !p.removedAt)}
-          dict={dict}
-        />
-
-        {/* Submission Timeline */}
-        {((deliverable?.submissions && deliverable.submissions.length > 0) ||
-          (socialPosts && socialPosts.length > 0)) && (
-          <SubmissionTimeline
-            deliverableSubmissions={deliverable?.submissions || []}
-            socialPosts={socialPosts}
-            dict={dict}
-          />
-        )}
-
-        {/* Tips */}
-        <TipsSection dict={dict} />
-
-        {/* Mentors */}
-        <MentorsSection dict={dict} />
-
-        {/* FAQ */}
-        <FAQSection dict={dict} />
       </div>
     </div>
   )

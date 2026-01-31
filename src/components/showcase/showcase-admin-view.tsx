@@ -12,7 +12,6 @@ interface ShowcaseAdminViewProps {
     snapshot: {
       teamNumber: number
       sourceUrl: string
-      title: string | null
       fetchError: string | null
       lastFetchedAt: Date | null
     } | null
@@ -132,7 +131,6 @@ export function ShowcaseAdminView({
               <tr className="border-b">
                 <th className="p-4 text-left">Team</th>
                 <th className="p-4 text-left">Status</th>
-                <th className="p-4 text-left">Title</th>
                 <th className="p-4 text-left">Last Fetched</th>
                 <th className="p-4 text-left">Error</th>
                 <th className="p-4 text-left">Actions</th>
@@ -161,11 +159,6 @@ export function ShowcaseAdminView({
                       )}
                       {status === "missing" && (
                         <Badge variant="outline">Missing</Badge>
-                      )}
-                    </td>
-                    <td className="p-4">
-                      {item.snapshot?.title || (
-                        <span className="text-muted-foreground">—</span>
                       )}
                     </td>
                     <td className="p-4 text-sm text-muted-foreground">

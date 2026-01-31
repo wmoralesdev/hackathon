@@ -4,6 +4,7 @@ import * as React from "react"
 import { Card } from "@/ui/card"
 import type { Dictionary } from "@/i18n/utils"
 import { cn } from "@/lib/utils"
+import { PortalSectionHeader } from "./portal-section-header"
 
 interface CountdownTimerProps {
   freezeTime: Date
@@ -53,27 +54,28 @@ export function CountdownTimer({ freezeTime, dict }: CountdownTimerProps) {
     : "text-green-400"
 
   const bgColor = isFrozen
-    ? "bg-red-500/10 border-red-500/30"
+    ? "bg-red-500/5 border-red-500/20"
     : isUrgent
-    ? "bg-red-500/10 border-red-500/30"
+    ? "bg-red-500/5 border-red-500/20"
     : isWarning
-    ? "bg-yellow-500/10 border-yellow-500/30"
-    : "bg-green-500/10 border-green-500/30"
+    ? "bg-yellow-500/5 border-yellow-500/20"
+    : "bg-green-500/5 border-green-500/20"
 
   return (
-    <Card level={2} className={cn("p-6", bgColor)}>
+    <Card level={2} className={cn(bgColor)}>
       <div className="space-y-4">
+        <PortalSectionHeader
+          title={dict.portal?.countdown?.title || "Time Until Freeze"}
+        />
+        
         <div>
-          <h3 className="text-sm font-mono text-foreground/60 mb-1 uppercase tracking-wider">
-            {dict.portal?.countdown?.title || "Time Until Freeze"}
-          </h3>
           {isFrozen ? (
-            <p className={cn("text-2xl font-black uppercase", statusColor)}>
+            <p className={cn("text-2xl font-black uppercase tracking-tight", statusColor)}>
               {dict.portal?.countdown?.frozen || "CODE FREEZE!"}
             </p>
           ) : (
             <div className="flex items-baseline gap-2">
-              <span className={cn("text-4xl font-black tabular-nums", statusColor)}>
+              <span className={cn("text-5xl font-black tabular-nums tracking-tighter", statusColor)}>
                 {String(timeRemaining.hours).padStart(2, "0")}:
                 {String(timeRemaining.minutes).padStart(2, "0")}:
                 {String(timeRemaining.seconds).padStart(2, "0")}
@@ -82,11 +84,17 @@ export function CountdownTimer({ freezeTime, dict }: CountdownTimerProps) {
           )}
         </div>
 
-        <div className="pt-4 border-t border-white/10">
+        <div className="pt-4 border-t border-white/10 space-y-2">
           <div className="flex items-center justify-between text-xs font-mono text-foreground/50">
             <span>{dict.portal?.countdown?.current_time || "Current Time"}</span>
             <span className="tabular-nums">
               {now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+            </span>
+          </div>
+          <div className="flex items-center justify-between text-xs font-mono">
+            <span className="text-foreground/60">{dict.portal?.countdown?.freeze_time || "Code Freeze"}</span>
+            <span className="tabular-nums text-accent/80 font-semibold">
+              {freezeTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
             </span>
           </div>
         </div>

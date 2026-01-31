@@ -42,19 +42,11 @@ export interface FirecrawlScrapeResponse {
 
 /**
  * Normalized showcase data extracted from Firecrawl response.
+ * Only includes URL and screenshot - all other content comes from team-provided fields.
  */
 export interface ShowcaseScrapeResult {
   url: string
-  title?: string
-  description?: string
-  ogJson?: Record<string, unknown>
-  markdown?: string
   screenshotUrl?: string
-  links?: Array<{
-    href: string
-    text?: string
-    type?: string
-  }>
 }
 
 /**
@@ -102,13 +94,13 @@ export class FirecrawlClient {
    * Scrapes a URL using Firecrawl /scrape endpoint.
    * 
    * @param url - The URL to scrape (must be validated first)
-   * @param formats - Formats to request from Firecrawl
+   * @param formats - Formats to request from Firecrawl (defaults to screenshot only)
    * @returns Normalized scrape result
    * @throws FirecrawlScrapeError on failure
    */
   async scrape(
     url: string,
-    formats: FirecrawlScrapeFormats[] = ["markdown", "screenshot", "links"]
+    formats: FirecrawlScrapeFormats[] = ["screenshot"]
   ): Promise<ShowcaseScrapeResult> {
     let lastError: unknown
 
@@ -244,6 +236,7 @@ export class FirecrawlClient {
 
   /**
    * Normalizes Firecrawl response to ShowcaseScrapeResult format.
+   * Only extracts URL and screenshot - all other content is ignored.
    */
   private normalizeResponse(
     response: FirecrawlScrapeResponse,
@@ -257,27 +250,10 @@ export class FirecrawlClient {
     }
 
     const { data } = response
-    const metadata = data.metadata || {}
-
-    // Build OG JSON object
-    const ogJson: Record<string, unknown> = {}
-    if (metadata.ogTitle) ogJson["og:title"] = metadata.ogTitle
-    if (metadata.ogDescription) ogJson["og:description"] = metadata.ogDescription
-    if (metadata.ogImage) ogJson["og:image"] = metadata.ogImage
-    if (metadata.ogUrl) ogJson["og:url"] = metadata.ogUrl
-    if (metadata.ogSiteName) ogJson["og:site_name"] = metadata.ogSiteName
-
-    // Include all metadata fields
-    Object.assign(ogJson, metadata)
 
     return {
       url: data.url || originalUrl,
-      title: metadata.title || metadata.ogTitle || undefined,
-      description: metadata.description || metadata.ogDescription || undefined,
-      ogJson: Object.keys(ogJson).length > 0 ? ogJson : undefined,
-      markdown: data.markdown || undefined,
       screenshotUrl: data.screenshot || undefined,
-      links: data.links || undefined,
     }
   }
 }

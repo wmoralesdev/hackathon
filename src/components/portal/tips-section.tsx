@@ -2,6 +2,7 @@
 
 import { Card } from "@/ui/card"
 import type { Dictionary } from "@/i18n/utils"
+import { PortalSectionHeader } from "./portal-section-header"
 
 interface TipsSectionProps {
   dict: Dictionary
@@ -17,24 +18,23 @@ export function TipsSection({ dict }: TipsSectionProps) {
   ]
 
   return (
-    <Card level={2} className="p-6">
+    <Card level={2}>
       <div className="space-y-4">
-        <div>
-          <h3 className="text-sm font-mono text-foreground/60 mb-1 uppercase tracking-wider">
-            {dict.portal?.tips?.title || "Tips"}
-          </h3>
-          <p className="text-foreground/50 text-sm">
-            {dict.portal?.tips?.subtitle || "Helpful advice for the hackathon"}
-          </p>
-        </div>
+        <PortalSectionHeader
+          title={dict.portal?.tips?.title || "Tips"}
+          subtitle={dict.portal?.tips?.subtitle || "Helpful advice for the hackathon"}
+        />
 
-        <ul className="space-y-3 pt-4 border-t border-white/10">
+        <ul className="space-y-3 pt-2">
           {tips.map((tip, index) => (
-            <li key={`tip-${tip.substring(0, 20)}-${index}`} className="flex items-start gap-3">
-              <div className="size-5 rounded-full bg-accent/20 flex items-center justify-center shrink-0 mt-0.5">
-                <span className="text-accent text-xs font-bold">{index + 1}</span>
+            <li 
+              key={`tip-${tip.substring(0, 20)}-${index}`} 
+              className="flex items-start gap-3 p-3 rounded bg-white/5 border border-white/10 hover:border-accent/30 transition-colors"
+            >
+              <div className="size-5 rounded-full bg-accent/20 flex items-center justify-center shrink-0 mt-0.5 text-accent text-xs font-bold border border-accent/20">
+                {index + 1}
               </div>
-              <p className="text-foreground/70 text-sm flex-1">{tip}</p>
+              <p className="text-foreground/80 text-sm flex-1 leading-relaxed">{tip}</p>
             </li>
           ))}
         </ul>

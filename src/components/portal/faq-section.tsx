@@ -3,6 +3,7 @@
 import { Accordion } from "@/ui/accordion"
 import { Card } from "@/ui/card"
 import type { Dictionary } from "@/i18n/utils"
+import { PortalSectionHeader } from "./portal-section-header"
 
 interface FAQItem {
   question: string
@@ -34,25 +35,21 @@ export function FAQSection({ dict }: FAQSectionProps) {
   ]
 
   return (
-    <Card level={2} className="p-6">
+    <Card level={2}>
       <div className="space-y-4">
-        <div>
-          <h3 className="text-sm font-mono text-foreground/60 mb-1 uppercase tracking-wider">
-            {dict.portal?.faq?.title || "FAQ"}
-          </h3>
-          <p className="text-foreground/50 text-sm">
-            {dict.portal?.faq?.subtitle || "Frequently asked questions"}
-          </p>
-        </div>
+        <PortalSectionHeader
+          title={dict.portal?.faq?.title || "FAQ"}
+          subtitle={dict.portal?.faq?.subtitle || "Frequently asked questions"}
+        />
 
-        <div className="pt-4 border-t border-white/10">
+        <div className="pt-2">
           <Accordion
             items={faqs.map((faq, index) => ({
               id: `faq-${index}`,
               trigger: (
-                <span className="text-left font-medium">{faq.question}</span>
+                <span className="text-left font-medium text-sm hover:text-accent transition-colors">{faq.question}</span>
               ),
-              content: <p className="text-foreground/70 text-sm">{faq.answer}</p>,
+              content: <p className="text-foreground/70 text-sm leading-relaxed pl-4 border-l-2 border-accent/20">{faq.answer}</p>,
             }))}
           />
         </div>

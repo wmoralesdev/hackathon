@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server"
 import { prisma } from "@/lib/prisma"
 import { NextResponse } from "next/server"
+import { ingestTeamShowcase } from "@/lib/showcase/ingestion"
 
 export async function POST(request: Request) {
   try {
@@ -22,7 +23,25 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json()
-    const { teamNumber, saasUrl } = body as { teamNumber: number; saasUrl: string }
+    const {
+      teamNumber,
+      saasUrl,
+      productName,
+      oneLiner,
+      targetUsers,
+      problem,
+      category,
+      stage,
+    } = body as {
+      teamNumber: number
+      saasUrl: string
+      productName?: string | null
+      oneLiner?: string | null
+      targetUsers?: string | null
+      problem?: string | null
+      category?: string | null
+      stage?: string | null
+    }
 
     if (profile.teamNumber !== teamNumber) {
       return NextResponse.json({ error: "Team number mismatch" }, { status: 403 })
@@ -41,11 +60,40 @@ export async function POST(request: Request) {
       create: {
         teamNumber,
         saasUrl: saasUrl || null,
+        productName: productName?.trim() || null,
+        oneLiner: oneLiner?.trim() || null,
+        targetUsers: targetUsers?.trim() || null,
+        problem: problem?.trim() || null,
+        category: category?.trim() || null,
+        stage: stage?.trim() || null,
       },
       update: {
         saasUrl: saasUrl || null,
+        productName: productName?.trim() || null,
+        oneLiner: oneLiner?.trim() || null,
+        targetUsers: targetUsers?.trim() || null,
+        problem: problem?.trim() || null,
+        category: category?.trim() || null,
+        stage: stage?.trim() || null,
       },
     })
+
+    // Trigger showcase ingestion when SaaS URL is new/updated OR showcase is missing/failed
+    let shouldTriggerShowcaseIngestion = false
+    if (deliverable.saasUrl) {
+      const existingSnapshot = await prisma.showcaseSnapshot.findUnique({
+        where: { teamNumber },
+        select: { fetchError: true },
+      })
+      shouldTriggerShowcaseIngestion =
+        existing?.saasUrl !== deliverable.saasUrl ||
+        !existingSnapshot ||
+        existingSnapshot.fetchError !== null
+    }
+
+    if (shouldTriggerShowcaseIngestion && deliverable.saasUrl) {
+      void ingestTeamShowcase(teamNumber, deliverable.saasUrl, { logProgress: true })
+    }
 
     // Create submission records for changes
     const submissions = []

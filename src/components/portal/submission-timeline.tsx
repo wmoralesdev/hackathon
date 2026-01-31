@@ -3,6 +3,7 @@
 import * as React from "react"
 import { Card } from "@/ui/card"
 import type { Dictionary } from "@/i18n/utils"
+import { PortalSectionHeader } from "./portal-section-header"
 
 interface DeliverableSubmission {
   id: string
@@ -127,28 +128,24 @@ export function SubmissionTimeline({
   }
 
   return (
-    <Card level={2} className="p-6">
+    <Card level={2}>
       <div className="space-y-4">
-        <div>
-          <h3 className="text-sm font-mono text-foreground/60 mb-1 uppercase tracking-wider">
-            {dict.portal?.timeline?.title || "Submission Timeline"}
-          </h3>
-          <p className="text-foreground/50 text-sm">
-            {dict.portal?.timeline?.subtitle || "History of all team submissions"}
-          </p>
-        </div>
+        <PortalSectionHeader
+          title={dict.portal?.timeline?.title || "Submission Timeline"}
+          subtitle={dict.portal?.timeline?.subtitle || "History of all team submissions"}
+        />
 
         <div className="space-y-3">
           {items.map((item) => (
             <div
               key={item.id}
-              className="flex items-start gap-3 p-3 bg-white/5 border border-white/10"
+              className="flex items-start gap-3 p-3 bg-white/5 border border-white/10 rounded hover:bg-white/10 hover:border-accent/30 transition-all duration-200"
             >
-              <div className="w-2 h-2 rounded-full bg-accent mt-2 flex-shrink-0" />
+              <div className="w-2 h-2 rounded-full bg-accent mt-2 flex-shrink-0 shadow-[0_0_8px_rgba(245,78,0,0.5)]" />
               <div className="flex-1 min-w-0">
                 <p className="text-sm text-foreground/90">
-                  <span className="font-semibold">{item.who}</span>{" "}
-                  {getActionLabel(item.action, item.value)}
+                  <span className="font-semibold text-accent/80">{item.who}</span>{" "}
+                  <span className="text-foreground/70">{getActionLabel(item.action, item.value)}</span>
                 </p>
                 <p className="text-xs text-foreground/40 font-mono mt-1">
                   {formatTimeAgo(item.at)}

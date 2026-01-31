@@ -8,7 +8,7 @@
  */
 
 import { validateShowcaseUrl, type ShowcaseUrlError } from "./url-validation"
-import { getFirecrawlClient, type FirecrawlScrapeError } from "./firecrawl-client"
+import { getFirecrawlClient, FirecrawlScrapeError } from "./firecrawl-client"
 import type { ShowcaseScrapeResult } from "./firecrawl-client"
 
 export interface ScrapeSaasLandingResult {
@@ -47,13 +47,11 @@ export async function scrapeSaasLanding(
     }
   }
 
-  // Step 2: Scrape with Firecrawl
+  // Step 2: Scrape with Firecrawl (screenshot only)
   const client = getFirecrawlClient()
   try {
     const result = await client.scrape(validatedUrl.toString(), [
-      "markdown",
       "screenshot",
-      "links",
     ])
 
     return {

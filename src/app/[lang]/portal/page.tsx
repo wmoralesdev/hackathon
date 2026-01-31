@@ -2,10 +2,10 @@ import { getDictionary } from "@/i18n/utils"
 import { Nav } from "@/components/nav"
 import { Footer } from "@/components/landing/footer"
 import { PortalView } from "@/components/portal/portal-view"
+import { PortalBackdrop } from "@/components/portal/portal-backdrop"
 import { createClient } from "@/lib/supabase/server"
 import { prisma } from "@/lib/prisma"
-import { readFile } from "fs/promises"
-import { join } from "path"
+import { getParticipantDirectoryContent } from "@/lib/participants-directory"
 import { redirect } from "next/navigation"
 
 export default async function PortalPage({
@@ -64,12 +64,10 @@ export default async function PortalPage({
     },
   })
 
-  // Read content.txt
-  const contentPath = join(process.cwd(), "public", "content.txt")
-  const content = await readFile(contentPath, "utf-8")
+  const content = await getParticipantDirectoryContent()
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans selection:bg-accent/30">
+    <PortalBackdrop className="min-h-screen bg-background text-foreground font-sans selection:bg-accent/30">
       <Nav dict={dict} />
       <main className="flex flex-col">
         <PortalView
@@ -81,6 +79,12 @@ export default async function PortalPage({
           }}
           deliverable={deliverable ? {
             saasUrl: deliverable.saasUrl,
+            productName: deliverable.productName,
+            oneLiner: deliverable.oneLiner,
+            targetUsers: deliverable.targetUsers,
+            problem: deliverable.problem,
+            category: deliverable.category,
+            stage: deliverable.stage,
             updatedAt: deliverable.updatedAt ?? undefined,
             submissions: deliverable.submissions.map(s => ({
               id: s.id,
@@ -94,6 +98,6 @@ export default async function PortalPage({
         />
       </main>
       <Footer dict={dict} />
-    </div>
+    </PortalBackdrop>
   )
 }
