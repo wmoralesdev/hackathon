@@ -36,7 +36,7 @@ model ParticipantDirectoryEntry {
   rsvp       Boolean? @map("rsvp")
   whatsapp   String?  @map("whatsapp") @db.Text
   createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @updatedAt @map("updated_at")
+  updatedAt  DateTime? @updatedAt @map("updated_at")
 
   @@unique([teamNumber, name])
   @@index([teamNumber])
