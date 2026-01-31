@@ -5,8 +5,9 @@ import { PortalView } from "@/components/portal/portal-view"
 import { PortalBackdrop } from "@/components/portal/portal-backdrop"
 import { createClient } from "@/lib/supabase/server"
 import { prisma } from "@/lib/prisma"
-import { getParticipantDirectoryContent } from "@/lib/participants-directory"
 import { redirect } from "next/navigation"
+
+export const dynamic = "force-dynamic"
 
 export default async function PortalPage({
   params,
@@ -64,15 +65,12 @@ export default async function PortalPage({
     },
   })
 
-  const content = await getParticipantDirectoryContent()
-
   return (
     <PortalBackdrop className="min-h-screen bg-background text-foreground font-sans selection:bg-accent/30">
       <Nav dict={dict} />
       <main className="flex flex-col">
         <PortalView
           dict={dict}
-          content={content}
           profile={{
             participantName: profile.participantName,
             teamNumber: profile.teamNumber,

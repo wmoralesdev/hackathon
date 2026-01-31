@@ -4,18 +4,27 @@ import { Card } from "@/ui/card"
 import { ParticipantSelect } from "./participant-select"
 import type { Dictionary } from "@/i18n/utils"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { createClient } from "@/lib/supabase/client"
+import { getParticipantDirectoryEntries } from "@/app/actions/participant-directory"
+import type { Participant } from "@/lib/participants"
 
 interface OnboardingViewProps {
   dict: Dictionary
-  content: string
 }
 
-export function OnboardingView({ dict, content }: OnboardingViewProps) {
+export function OnboardingView({ dict }: OnboardingViewProps) {
   const router = useRouter()
   const supabase = createClient()
   const [loading, setLoading] = useState(false)
+  const [participants, setParticipants] = useState<Participant[]>([])
+  const [loadingParticipants, setLoadingParticipants] = useState(true)
+
+  useEffect(() => {
+    getParticipantDirectoryEntries()
+      .then(setParticipants)
+      .finally(() => setLoadingParticipants(false))
+  }, [])
 
   const handleSelect = async (data: { name: string; teamNumber: number; isLead: boolean }) => {
     setLoading(true)
@@ -68,12 +77,18 @@ export function OnboardingView({ dict, content }: OnboardingViewProps) {
           </p>
         </div>
 
-        <ParticipantSelect
-          content={content}
-          onSelect={handleSelect}
-          dict={dict}
-          loading={loading}
-        />
+        {loadingParticipants ? (
+          <div className="text-center py-8">
+            <p className="text-foreground/50 text-sm">Loading participants...</p>
+          </div>
+        ) : (
+          <ParticipantSelect
+            participants={participants}
+            onSelect={handleSelect}
+            dict={dict}
+            loading={loading}
+          />
+        )}
       </Card>
     </div>
   )

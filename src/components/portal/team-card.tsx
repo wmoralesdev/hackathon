@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { Card } from "@/ui/card"
-import { getTeamByNumber } from "@/lib/participants"
+import { getTeamByNumberFromList, type Participant } from "@/lib/participants"
 import type { Dictionary } from "@/i18n/utils"
 import { cn, toSentenceCase } from "@/lib/utils"
 import { PortalSectionHeader } from "./portal-section-header"
@@ -10,19 +10,19 @@ import { PortalSectionHeader } from "./portal-section-header"
 interface TeamCardProps {
   teamNumber: number
   currentUserName: string
-  content: string
+  participants: Participant[]
   dict: Dictionary
 }
 
 export function TeamCard({
   teamNumber,
   currentUserName,
-  content,
+  participants,
   dict,
 }: TeamCardProps) {
   const team = React.useMemo(() => {
-    return getTeamByNumber(content, teamNumber)
-  }, [content, teamNumber])
+    return getTeamByNumberFromList(participants, teamNumber)
+  }, [participants, teamNumber])
 
   if (!team) {
     return (

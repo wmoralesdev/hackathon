@@ -3,19 +3,19 @@
 import * as React from "react"
 import { Card } from "@/ui/card"
 import { Button } from "@/ui/button"
-import { findAllParticipantsByName, type Participant } from "@/lib/participants"
+import { findAllParticipantsByNameFromList, type Participant } from "@/lib/participants"
 import type { Dictionary } from "@/i18n/utils"
 import { cn } from "@/lib/utils"
 
 interface ParticipantSelectProps {
-  content: string
+  participants: Participant[]
   onSelect: (data: { name: string; teamNumber: number; isLead: boolean }) => void
   dict: Dictionary
   loading?: boolean
 }
 
 export function ParticipantSelect({
-  content,
+  participants,
   onSelect,
   dict,
   loading = false,
@@ -25,8 +25,8 @@ export function ParticipantSelect({
 
   const matchedParticipants = React.useMemo(() => {
     if (name.trim().length < 2) return []
-    return findAllParticipantsByName(content, name)
-  }, [name, content])
+    return findAllParticipantsByNameFromList(participants, name)
+  }, [name, participants])
 
   // Auto-select if only one match exists
   React.useEffect(() => {
@@ -119,7 +119,7 @@ export function ParticipantSelect({
                           </p>
                         </div>
                         {isSelected && (
-                          <div className="size-5 rounded-full bg-accent flex items-center justify-center" aria-label="Selected">
+                          <div className="size-5 rounded-full bg-accent flex items-center justify-center">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="12"

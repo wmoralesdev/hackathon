@@ -1,5 +1,3 @@
-import { readFile } from "fs/promises"
-import { join } from "path"
 import { prisma } from "@/lib/prisma"
 
 type ParticipantDirectoryRow = {
@@ -54,10 +52,5 @@ export async function getParticipantDirectoryContent() {
     ],
   })
 
-  if (rows.length > 0) {
-    return formatDirectoryContent(rows)
-  }
-
-  const contentPath = join(process.cwd(), "public", "content.txt")
-  return readFile(contentPath, "utf-8")
+  return formatDirectoryContent(rows)
 }

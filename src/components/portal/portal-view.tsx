@@ -1,5 +1,6 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import { CountdownTimer } from "./countdown-timer"
 import { TeamCard } from "./team-card"
 import { DeliverableForm } from "./deliverable-form"
@@ -11,10 +12,11 @@ import { FAQSection } from "./faq-section"
 import { AuthButton } from "./auth-button"
 import { PortalHeader } from "./portal-header"
 import type { Dictionary } from "@/i18n/utils"
+import { getParticipantDirectoryEntries } from "@/app/actions/participant-directory"
+import type { Participant } from "@/lib/participants"
 
 interface PortalViewProps {
   dict: Dictionary
-  content: string
   profile: {
     participantName: string
     teamNumber: number
@@ -58,11 +60,16 @@ const FREEZE_TIME = new Date("2026-01-31T14:30:00-06:00")
 
 export function PortalView({
   dict,
-  content,
   profile,
   deliverable,
   socialPosts = [],
 }: PortalViewProps) {
+  const [participants, setParticipants] = useState<Participant[]>([])
+
+  useEffect(() => {
+    getParticipantDirectoryEntries().then(setParticipants)
+  }, [])
+
   return (
     <div className="container mx-auto px-4 py-8 md:py-12">
       <div className="max-w-7xl mx-auto">
@@ -113,7 +120,7 @@ export function PortalView({
               <TeamCard
                 teamNumber={profile.teamNumber}
                 currentUserName={profile.participantName}
-                content={content}
+                participants={participants}
                 dict={dict}
               />
 

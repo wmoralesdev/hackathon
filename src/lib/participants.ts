@@ -166,3 +166,33 @@ export function findAllParticipantsByName(
     return words.some(word => word.startsWith(normalizedSearch));
   });
 }
+
+export function findAllParticipantsByNameFromList(
+  participants: Participant[],
+  searchName: string
+): Participant[] {
+  const normalizedSearch = searchName.toLowerCase().trim().replace(/\s+/g, ' ');
+  
+  if (!normalizedSearch) return [];
+  
+  return participants.filter((p) => {
+    const normalizedName = p.name.toLowerCase().trim().replace(/\s+/g, ' ');
+    if (normalizedName.includes(normalizedSearch)) return true;
+    const words = normalizedName.split(/\s+/);
+    return words.some(word => word.startsWith(normalizedSearch));
+  });
+}
+
+export function getTeamByNumberFromList(
+  participants: Participant[],
+  teamNumber: number
+): Team | null {
+  const teamMembers = participants.filter((p) => p.teamNumber === teamNumber);
+  
+  if (teamMembers.length === 0) return null;
+  
+  return {
+    number: teamNumber,
+    members: teamMembers,
+  };
+}
