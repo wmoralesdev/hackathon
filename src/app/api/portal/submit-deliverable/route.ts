@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server"
 import { prisma } from "@/lib/prisma"
-import { NextResponse } from "next/server"
+import { NextResponse, after } from "next/server"
 import { ingestTeamShowcase } from "@/lib/showcase/ingestion"
 
 export async function POST(request: Request) {
@@ -92,7 +92,17 @@ export async function POST(request: Request) {
     }
 
     if (shouldTriggerShowcaseIngestion && deliverable.saasUrl) {
-      void ingestTeamShowcase(teamNumber, deliverable.saasUrl, { logProgress: true })
+      // Schedule showcase ingestion to run after response is sent
+      after(async () => {
+        try {
+          await ingestTeamShowcase(teamNumber, deliverable.saasUrl, { logProgress: true })
+        } catch (error) {
+          console.error(
+            `[Showcase Ingestion] Failed for team ${teamNumber}:`,
+            error instanceof Error ? error.message : error
+          )
+        }
+      })
     }
 
     // Create submission records for changes

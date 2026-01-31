@@ -37,14 +37,22 @@ export async function ingestTeamShowcase(
   options: IngestionOptions = {}
 ): Promise<IngestionResult> {
   const startTime = Date.now()
+  const { logProgress = false } = options
 
   if (!saasUrl) {
+    if (logProgress) {
+      console.log(`[Ingestion] Team ${teamNumber}: Skipped (no SaaS URL)`)
+    }
     return {
       teamNumber,
       success: false,
       error: "no_saas_url",
       duration: Date.now() - startTime,
     }
+  }
+
+  if (logProgress) {
+    console.log(`[Ingestion] Team ${teamNumber}: Starting ingestion for ${saasUrl}`)
   }
 
   try {
@@ -67,11 +75,18 @@ export async function ingestTeamShowcase(
         },
       })
 
+      const duration = Date.now() - startTime
+      if (logProgress) {
+        console.log(
+          `[Ingestion] Team ${teamNumber}: Failed (${scrapeResult.errorCode}) in ${duration}ms`
+        )
+      }
+
       return {
         teamNumber,
         success: false,
         error: scrapeResult.errorCode,
-        duration: Date.now() - startTime,
+        duration,
       }
     }
 
@@ -93,10 +108,15 @@ export async function ingestTeamShowcase(
       },
     })
 
+    const duration = Date.now() - startTime
+    if (logProgress) {
+      console.log(`[Ingestion] Team ${teamNumber}: Success in ${duration}ms`)
+    }
+
     return {
       teamNumber,
       success: true,
-      duration: Date.now() - startTime,
+      duration,
     }
   } catch (error) {
     // Store error
@@ -114,11 +134,20 @@ export async function ingestTeamShowcase(
       },
     })
 
+    const duration = Date.now() - startTime
+    const errorMessage = error instanceof Error ? error.message : "unknown"
+    if (logProgress) {
+      console.error(
+        `[Ingestion] Team ${teamNumber}: Error (${errorMessage}) in ${duration}ms`,
+        error
+      )
+    }
+
     return {
       teamNumber,
       success: false,
-      error: error instanceof Error ? error.message : "unknown",
-      duration: Date.now() - startTime,
+      error: errorMessage,
+      duration,
     }
   }
 }
