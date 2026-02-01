@@ -5,6 +5,8 @@ import { ShowcaseGrid } from "@/components/showcase/showcase-grid"
 import type { ShowcaseSnapshot } from "@/components/showcase/showcase-card"
 import { prisma } from "@/lib/prisma"
 
+export const dynamic = "force-dynamic"
+
 export default async function ShowcasePage({
   params,
 }: {

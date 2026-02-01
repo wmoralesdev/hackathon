@@ -7,6 +7,8 @@ import { prisma } from "@/lib/prisma"
 import { checkAdminAuth } from "@/lib/showcase/admin-auth"
 import { notFound } from "next/navigation"
 
+export const dynamic = "force-dynamic"
+
 export default async function ShowcaseDetailPage({
   params,
 }: {
