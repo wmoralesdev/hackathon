@@ -9,12 +9,11 @@ export const en = {
   },
   teams: {
     title: "Teams",
-    search_placeholder: "Search by name or WhatsApp...",
+    search_placeholder: "Search by name...",
     role: "Role",
     name: "Name",
     luma: "Luma",
     rsvp: "RSVP",
-    whatsapp: "WhatsApp",
     lead: "Lead",
     member: "Member",
     no_results: "No results",

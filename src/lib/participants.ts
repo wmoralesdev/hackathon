@@ -4,7 +4,6 @@ export interface Participant {
   isLead: boolean;
   luma?: boolean;
   rsvp?: boolean;
-  whatsapp?: string;
 }
 
 export interface Team {
@@ -49,14 +48,14 @@ export function parseParticipants(content: string): Team[] {
       continue;
     }
 
-    // Check if this is a header row (Members, Luma, RSVP, WhatsApp)
+    // Check if this is a header row (Members, Luma, RSVP)
     // Note: LEAD is NOT a header - it's a data value in the first column
-    if (line.trim().match(/^(Members|Luma|RSVP|WhatsApp)$/i)) {
+    if (line.trim().match(/^(Members|Luma|RSVP)$/i)) {
       continue;
     }
 
     // Parse team member line
-    // Format: LEAD or empty, Name, Luma, RSVP, WhatsApp
+    // Format: LEAD or empty, Name, Luma, RSVP
     // Split by tab FIRST to preserve column alignment, then trim each part
     const parts = line.split("\t").map(p => p.trim());
     
@@ -65,7 +64,6 @@ export function parseParticipants(content: string): Team[] {
       // Column 1: Name (Members column)
       // Column 2: Luma
       // Column 3: RSVP
-      // Column 4: WhatsApp
       
       // Check if first column is LEAD (could be empty for regular members)
       const firstCol = parts[0] || "";
@@ -75,17 +73,15 @@ export function parseParticipants(content: string): Team[] {
       const name = parts[1] || "";
       const luma = parseBoolean(parts[2])
       const rsvp = parseBoolean(parts[3])
-      const whatsapp = parts.length >= 5 && parts[4] ? parts[4] : undefined;
 
       // Skip if name is empty or is a header keyword
-      if (name && name !== "Members" && name !== "Luma" && name !== "RSVP" && name !== "WhatsApp") {
+      if (name && name !== "Members" && name !== "Luma" && name !== "RSVP") {
         currentTeam.members.push({
           name,
           teamNumber: currentTeam.number,
           isLead,
           luma,
           rsvp,
-          whatsapp: whatsapp && whatsapp !== "WhatsApp" ? whatsapp : undefined,
         });
       }
     }

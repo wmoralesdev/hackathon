@@ -9,12 +9,11 @@ export const es = {
   },
   teams: {
     title: "Equipos",
-    search_placeholder: "Buscar por nombre o WhatsApp...",
+    search_placeholder: "Buscar por nombre...",
     role: "Rol",
     name: "Nombre",
     luma: "Luma",
     rsvp: "RSVP",
-    whatsapp: "WhatsApp",
     lead: "Líder",
     member: "Miembro",
     no_results: "Sin resultados",

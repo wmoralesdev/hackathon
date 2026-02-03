@@ -31,14 +31,13 @@ async function main() {
   ]
 
   for (const participant of participants) {
-    const sql = `INSERT INTO participant_directory_entries (team_number, participant_name, is_lead, luma, rsvp, whatsapp, created_at, updated_at)
+    const sql = `INSERT INTO participant_directory_entries (team_number, participant_name, is_lead, luma, rsvp, created_at, updated_at)
 VALUES (
   ${participant.teamNumber},
   ${escapeSqlString(participant.name)},
   ${formatSqlBoolean(participant.isLead)},
   ${formatSqlBoolean(participant.luma)},
   ${formatSqlBoolean(participant.rsvp)},
-  ${escapeSqlString(participant.whatsapp)},
   NOW(),
   NOW()
 )
@@ -47,7 +46,6 @@ DO UPDATE SET
   is_lead = EXCLUDED.is_lead,
   luma = EXCLUDED.luma,
   rsvp = EXCLUDED.rsvp,
-  whatsapp = EXCLUDED.whatsapp,
   updated_at = NOW();`
     
     sqlLines.push(sql)

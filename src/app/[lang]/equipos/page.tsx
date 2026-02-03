@@ -9,7 +9,6 @@ interface TeamMember {
   name: string
   luma: boolean
   rsvp: boolean
-  whatsapp: string
 }
 
 interface Team {
@@ -46,7 +45,6 @@ async function getTeamsFromDatabase(): Promise<Team[]> {
       name: entry.name,
       luma: entry.luma ?? false,
       rsvp: entry.rsvp ?? false,
-      whatsapp: entry.whatsapp ?? "",
     })
   }
 

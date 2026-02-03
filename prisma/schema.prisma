@@ -34,7 +34,6 @@ model ParticipantDirectoryEntry {
   isLead     Boolean  @default(false) @map("is_lead")
   luma       Boolean? @map("luma")
   rsvp       Boolean? @map("rsvp")
-  whatsapp   String?  @map("whatsapp") @db.Text
   createdAt  DateTime @default(now()) @map("created_at")
   updatedAt  DateTime? @updatedAt @map("updated_at")
 

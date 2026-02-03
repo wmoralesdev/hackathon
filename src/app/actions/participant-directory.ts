@@ -11,7 +11,6 @@ export async function getParticipantDirectoryEntries(): Promise<Participant[]> {
       isLead: true,
       luma: true,
       rsvp: true,
-      whatsapp: true,
     },
     orderBy: [
       { teamNumber: "asc" },
@@ -26,6 +25,5 @@ export async function getParticipantDirectoryEntries(): Promise<Participant[]> {
     isLead: row.isLead,
     luma: row.luma ?? undefined,
     rsvp: row.rsvp ?? undefined,
-    whatsapp: row.whatsapp ?? undefined,
   }))
 }

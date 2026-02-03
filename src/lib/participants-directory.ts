@@ -6,7 +6,6 @@ type ParticipantDirectoryRow = {
   isLead: boolean
   luma: boolean | null
   rsvp: boolean | null
-  whatsapp: string | null
 }
 
 const toTruthLabel = (value: boolean | null) => {
@@ -15,14 +14,13 @@ const toTruthLabel = (value: boolean | null) => {
 }
 
 const formatTeamHeader = (teamNumber: number) =>
-  `Team ${String(teamNumber).padStart(2, "0")}\tMembers\tLuma\tRSVP\tWhatsApp`
+  `Team ${String(teamNumber).padStart(2, "0")}\tMembers\tLuma\tRSVP`
 
 const formatParticipantLine = (row: ParticipantDirectoryRow) => {
   const leadLabel = row.isLead ? "LEAD" : ""
   const lumaLabel = toTruthLabel(row.luma)
   const rsvpLabel = toTruthLabel(row.rsvp)
-  const whatsapp = row.whatsapp ?? ""
-  return `${leadLabel}\t${row.name}\t${lumaLabel}\t${rsvpLabel}\t${whatsapp}`
+  return `${leadLabel}\t${row.name}\t${lumaLabel}\t${rsvpLabel}`
 }
 
 const formatDirectoryContent = (rows: ParticipantDirectoryRow[]) => {

@@ -30,7 +30,6 @@ async function main() {
             isLead: participant.isLead,
             luma: participant.luma ?? null,
             rsvp: participant.rsvp ?? null,
-            whatsapp: participant.whatsapp ?? null,
           },
           create: {
             teamNumber: participant.teamNumber,
@@ -38,7 +37,6 @@ async function main() {
             isLead: participant.isLead,
             luma: participant.luma ?? null,
             rsvp: participant.rsvp ?? null,
-            whatsapp: participant.whatsapp ?? null,
           },
         })
       )

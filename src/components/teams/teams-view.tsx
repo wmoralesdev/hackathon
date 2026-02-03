@@ -11,7 +11,6 @@ interface TeamMember {
   name: string
   luma: boolean
   rsvp: boolean
-  whatsapp: string
 }
 
 interface Team {
@@ -32,7 +31,6 @@ interface TeamsViewProps {
       name: string
       luma: string
       rsvp: string
-      whatsapp: string
       lead: string
       member: string
       no_results: string
@@ -50,12 +48,11 @@ export function TeamsView({ teams, loading, error, dict }: TeamsViewProps) {
 
   const t = dict.teams ?? {
     title: "Equipos",
-    search_placeholder: "Buscar por nombre o WhatsApp...",
+    search_placeholder: "Buscar por nombre...",
     role: "Rol",
     name: "Nombre",
     luma: "Luma",
     rsvp: "RSVP",
-    whatsapp: "WhatsApp",
     lead: "Líder",
     member: "Miembro",
     no_results: "Sin resultados",
@@ -90,8 +87,7 @@ export function TeamsView({ teams, loading, error, dict }: TeamsViewProps) {
     return teams.filter((team) =>
       team.members.some(
         (member) =>
-          member.name.toLowerCase().includes(searchLower) ||
-          member.whatsapp.toLowerCase().includes(searchLower)
+          member.name.toLowerCase().includes(searchLower)
       )
     )
   }, [teams, search])
@@ -247,9 +243,6 @@ export function TeamsView({ teams, loading, error, dict }: TeamsViewProps) {
                         <th className="pb-2 px-6 font-mono text-xs text-foreground/60 uppercase tracking-wider text-center whitespace-nowrap" style={{ width: '60px' }}>
                           {t.rsvp}
                         </th>
-                        <th className="pb-2 px-6 font-mono text-xs text-foreground/60 uppercase tracking-wider whitespace-nowrap" style={{ minWidth: '140px', width: '140px' }}>
-                          {t.whatsapp}
-                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -299,20 +292,6 @@ export function TeamsView({ teams, loading, error, dict }: TeamsViewProps) {
                               <span className="text-green-500">✓</span>
                             ) : (
                               <span className="text-red-500/60">✗</span>
-                            )}
-                          </td>
-                          <td className="py-2 px-6 font-mono text-xs text-foreground/60 break-all whitespace-normal" style={{ minWidth: '140px', width: '140px' }}>
-                            {member.whatsapp ? (
-                              <a
-                                href={`https://wa.me/${member.whatsapp.replace(/[^0-9]/g, "")}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="hover:text-accent transition-colors"
-                              >
-                                {member.whatsapp}
-                              </a>
-                            ) : (
-                              <span className="text-foreground/30">—</span>
                             )}
                           </td>
                         </tr>
